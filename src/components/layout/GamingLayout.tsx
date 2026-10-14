@@ -34,12 +34,11 @@ export const GamingLayout: React.FC<GamingLayoutProps> = ({
   toastMessage,
   onDismissToast,
   showJackpotBanner,
-  showFooterTrustBar,
+  showFooterTrustBar: _showFooterTrustBar,
   children,
 }) => {
   const isSmartPc = machineType === "smart-pc";
   const shouldShowJackpot = showJackpotBanner !== undefined ? showJackpotBanner : isSmartPc;
-  const shouldShowFooterTrust = showFooterTrustBar !== undefined ? showFooterTrustBar : isSmartPc;
   const [internalToast, setInternalToast] = useState<string | null>(null);
 
   // Kiosk Keyboard Lock: When balance is 0, keyboard is disabled until unlocked by Ctrl + Shift + D or balance > 0
@@ -115,53 +114,7 @@ export const GamingLayout: React.FC<GamingLayoutProps> = ({
         </div>
       </footer>
 
-      {/* Full Footer Trust Bar */}
-      {shouldShowFooterTrust && (
-        <div className="winbet-full-footer">
-          <div className="container-fluid">
-            <div className="row g-4 justify-content-between">
-              <div className="col-12 col-md-4">
-                <div className="d-flex align-items-center gap-2 mb-2">
-                  <span className="brand-name fs-5">
-                    <span style={{ color: "#f5b300" }}>BET</span>
-                    <span style={{ color: "#ffffff" }}>WISE</span>
-                  </span>
-                  <span className="badge bg-dark border border-warning-subtle text-warning" style={{ fontSize: "0.7rem" }}>
-                    OFFICIAL STATION
-                  </span>
-                </div>
-                <p className="text-dim small mb-3">
-                  Authorized Gaming Terminal and Smart PC system. Powered by Betwise Gaming Central.
-                </p>
-                <div className="security-badge-row">
-                  <span className="ssl-badge">
-                    <i className="fa-solid fa-lock me-1"></i> 256-BIT ENCRYPTION
-                  </span>
-                  <span className="age-badge">18+</span>
-                </div>
-              </div>
 
-              <div className="col-6 col-md-3">
-                <h4 className="footer-col-title">Quick Information</h4>
-                <ul className="footer-links-list">
-                  <li><span className="text-dim">Shop: {shopName}</span></li>
-                  <li><span className="text-dim">Station: {machineName}</span></li>
-                  <li><span className="text-dim">Mode: {machineType === "terminal" ? "Terminal (Ticket)" : "Smart PC (Cashier)"}</span></li>
-                </ul>
-              </div>
-
-              <div className="col-6 col-md-3">
-                <h4 className="footer-col-title">Player Assistance</h4>
-                <ul className="footer-links-list">
-                  <li><span className="text-dim">Ask shop cashier for assistance</span></li>
-                  <li><span className="text-dim">Always keep your cashout vouchers safe</span></li>
-                  <li><span className="text-dim">Play responsibly (18+ only)</span></li>
-                </ul>
-              </div>
-            </div>
-          </div>
-        </div>
-      )}
 
       {/* WinBet Theme Modal Popup (Replaces plain toast) */}
       <ThemeNotificationModal

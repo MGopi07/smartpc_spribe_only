@@ -5,9 +5,6 @@ import type { GameItem, MachineType } from "../../types";
 import { api } from "../../services/api";
 import { GameCard } from "./GameCard";
 import { LiveWinnersTicker } from "./LiveWinnersTicker";
-import { TournamentSection } from "./TournamentSection";
-import { VipPromotionsSection } from "./VipPromotionsSection";
-import { SmartPCHelpBar } from "./SmartPCHelpBar";
 
 interface GameGridProps {
   balance: number;
@@ -23,8 +20,8 @@ interface GameGridProps {
 export const GameGrid: React.FC<GameGridProps> = ({
   balance,
   machineType = "smart-pc",
-  machineName,
-  shopName,
+  machineName: _machineName,
+  shopName: _shopName,
   onBalanceChange: _onBalanceChange,
   showToast,
   onOpenCashout,
@@ -242,13 +239,7 @@ export const GameGrid: React.FC<GameGridProps> = ({
     navigate(playRoute, { state: { game } });
   };
 
-  const handleJoinTournament = (tourName: string) => {
-    showToast?.(`Successfully enrolled in ${tourName}! Your points are now tracking.`);
-  };
 
-  const handleClaimPromo = (promoName: string) => {
-    showToast?.(`${promoName} activated! Approach Cashier Desk to claim.`);
-  };
 
 interface LiveRoundItem {
   id: string;
@@ -554,31 +545,7 @@ interface LiveRoundItem {
         )}
       </section>
 
-      {/* ==============================================================
-           SMART PC SECTIONS (Populated dynamically from live API):
-           - Live Featured Picks Swiper
-           - Live Popular Games Swiper
-           - Daily Tournaments Arena
-           - VIP Promotions & Perks
-           - Smart PC Help Bar
-      =============================================================== */}
-      {!isTerminal && !isLoading && (
-        <>
-          {/* SECTION 5: DAILY TOURNAMENTS & CHALLENGES ARENA */}
-          <TournamentSection onJoinTournament={handleJoinTournament} />
 
-          {/* SECTION 6: VIP REWARDS & CASHIER PERKS */}
-          <VipPromotionsSection
-            onClaimPromo={handleClaimPromo}
-            onOpenCashout={onOpenCashout}
-          />
-
-          {/* SECTION 7: SMART PC HELP & FAIR PLAY ASSURANCE */}
-          <SmartPCHelpBar machineName={machineName} shopName={shopName} />
-        </>
-      )}
-
-      {/* End of Smart PC Sections */}
     </>
   );
 };
