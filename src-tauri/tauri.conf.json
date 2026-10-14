@@ -1,7 +1,7 @@
 {
   "$schema": "../node_modules/@tauri-apps/cli/config.schema.json",
   "productName": "winbet-smart-pc",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "identifier": "com.winbet.smartpc",
   "build": {
     "frontendDist": "../dist",
@@ -46,12 +46,16 @@
           "libwebkit2gtk-4.1-0 | libwebkit2gtk-4.0-37",
           "libgtk-3-0",
           "libsoup-3.0-0 | libsoup2.4-1"
-        ]
+        ],
+        "preInstallScript": "scripts/deb-preinstall.sh",
+        "postInstallScript": "scripts/deb-postinstall.sh",
+        "postRemoveScript": "scripts/deb-postremove.sh"
       }
     },
     "windows": {
       "nsis": {
-        "installMode": "both"
+        "installMode": "both",
+        "installerHooks": "installer_hooks.nsh"
       }
     }
   }

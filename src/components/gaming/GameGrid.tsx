@@ -1,9 +1,5 @@
 import React, { useState, useMemo, useEffect, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
-import { Swiper, SwiperSlide } from "swiper/react";
-import { Navigation, Autoplay, FreeMode } from "swiper/modules";
-import "swiper/css";
-import "swiper/css/navigation";
 
 import type { GameItem, MachineType } from "../../types";
 import { api } from "../../services/api";
@@ -24,29 +20,6 @@ interface GameGridProps {
   onZeroBalance?: () => void;
 }
 
-interface CategoryTabItem {
-  id: "all" | "spribe" | "provider";
-  label: string;
-  icon: string;
-  isHot?: boolean;
-}
-
-const CATEGORY_TABS: CategoryTabItem[] = [
-  { id: "all", label: "ALL GAMES", icon: "fa-solid fa-layer-group" },
-  { id: "spribe", label: "SPRIBE", icon: "fa-solid fa-gamepad", isHot: true },
-  { id: "provider", label: "PROVIDER", icon: "fa-solid fa-network-wired" },
-];
-
-const getProviderIcon = (providerName: string): string => {
-  const n = providerName.toLowerCase();
-  if (n.includes("sport") || n.includes("turbo") || n.includes("book")) return "fa-solid fa-futbol";
-  if (n.includes("spribe")) return "fa-solid fa-gamepad";
-  if (n.includes("evolution") || n.includes("live")) return "fa-solid fa-tower-broadcast";
-  if (n.includes("ruby") || n.includes("gem")) return "fa-solid fa-gem";
-  if (n.includes("barbara") || n.includes("wazdan") || n.includes("popi") || n.includes("avatar")) return "fa-solid fa-gamepad";
-  return "fa-solid fa-gamepad";
-};
-
 export const GameGrid: React.FC<GameGridProps> = ({
   balance,
   machineType = "smart-pc",
@@ -59,13 +32,8 @@ export const GameGrid: React.FC<GameGridProps> = ({
 }) => {
   const navigate = useNavigate();
   const isTerminal = machineType === "terminal";
-  const [selectedFilter, setSelectedFilter] = useState<"all" | "spribe" | "provider">("all");
-  const [availableProviders, setAvailableProviders] = useState<string[]>([]);
-  const [selectedSubProvider, setSelectedSubProvider] = useState<string>("all");
   const [searchQuery, setSearchQuery] = useState("");
   const [catalogGames, setCatalogGames] = useState<GameItem[]>([]);
-  const [popularGames, setPopularGames] = useState<GameItem[]>([]);
-  const [featuredSpribeGames, setFeaturedSpribeGames] = useState<GameItem[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [currentPage, setCurrentPage] = useState(1);
   const [hasMore, setHasMore] = useState(false);
@@ -116,8 +84,8 @@ export const GameGrid: React.FC<GameGridProps> = ({
           if (n.includes("dice") || n.includes("odd") || n.includes("even")) return "/assets/games/SPRIBE/DICE.png";
           if (n.includes("hi-lo") || n.includes("hilo") || n.includes("hi lo") || n.includes("card")) return "/assets/games/SPRIBE/HILO.png";
           if (n.includes("hotline")) return "/assets/games/SPRIBE/HOTLINE.png";
-          if (n.includes("keno80") || n.includes("keno 80") || (n.includes("keno") && n.includes("80"))) return "/assets/games/SPRIBE/KENO80.png";
-          if (n.includes("keno")) return "/assets/games/SPRIBE/KENO.png";
+          if (n.includes("keno80") || n.includes("keno 80") || n.includes("kino80") || n.includes("kino 80") || ((n.includes("keno") || n.includes("kino")) && n.includes("80"))) return "/assets/games/SPRIBE/KENO80.png";
+          if (n.includes("keno") || n.includes("kino")) return "/assets/games/SPRIBE/KENO.png";
           if (n.includes("mines") || n.includes("mine") || n.includes("bomb")) return "/assets/games/SPRIBE/MINES.png";
           if (n.includes("miniroulette") || n.includes("mini-roulette") || n.includes("roulette")) return "/assets/games/SPRIBE/MINIROULETTE.png";
           if (n.includes("plinko")) return "/assets/games/SPRIBE/PLINKO.png";
@@ -149,94 +117,19 @@ export const GameGrid: React.FC<GameGridProps> = ({
     []
   );
 
-  const getProviderQuery = useCallback(() => {
-    if (selectedFilter === "all") return undefined;
-    if (selectedFilter === "spribe") return "Spribe";
-    if (selectedFilter === "provider") {
-      if (selectedSubProvider && selectedSubProvider !== "all") {
-        return selectedSubProvider;
-      }
-      return undefined;
-    }
-    return undefined;
-  }, [selectedFilter, selectedSubProvider]);
-
-  // Fast querySelector smooth scroll & filter changer
-  const scrollToCatalog = useCallback((filter: "all" | "spribe" | "provider" = "all") => {
-    setSelectedFilter(filter);
-    setSelectedSubProvider("all");
-    setSearchQuery("");
-    const catalogElement = document.querySelector("#categorySection");
-    if (catalogElement) {
-      catalogElement.scrollIntoView({ behavior: "smooth", block: "start" });
-    }
-  }, []);
-
-  // Fetch Providers list, Spribe games and popular games on mount
-  useEffect(() => {
-    let isMounted = true;
-
-    // Fetch Providers from Backend
-    api.getProviders().then((res) => {
-      if (isMounted && res && res.length > 0) {
-        const uniqueNames = Array.from(
-          new Set(
-            res
-              .map((p) => p.provider.trim())
-              .filter((p) => p && !p.toLowerCase().includes("spribe"))
-          )
-        );
-        setAvailableProviders(uniqueNames);
-      }
-    }).catch(err => console.warn("Failed to load providers:", err));
-    
-    // Fetch Popular
-    api
-      .getGamesPage(undefined, 1, 50)
-      .then((res) => {
-        if (isMounted && res.games && Array.isArray(res.games)) {
-          const mapped = res.games.map((item, idx) => mapApiGame(item, idx));
-          setPopularGames(mapped.length > 10 ? mapped.slice(10, 25) : mapped);
-        }
-      })
-      .catch((err) => console.warn("Failed to load popular games:", err));
-
-    // Fetch Spribe
-    api
-      .getGamesPage("Spribe", 1, 50)
-      .then((res) => {
-        if (isMounted && res.games && Array.isArray(res.games)) {
-          // Filter out 'mobile' variants so we get unique Spribe games
-          const uniqueSpribeGames = res.games.filter(game => !game.name.toLowerCase().includes('mobile'));
-          
-          const mapped = uniqueSpribeGames.map((item, idx) => mapApiGame(item, idx));
-          setFeaturedSpribeGames(mapped.slice(0, 13));
-        }
-      })
-      .catch((err) => console.warn("Failed to load spribe games:", err));
-
-    return () => { isMounted = false; };
-  }, [mapApiGame]);
-
-  // Use the fetched Spribe games instead of hardcoded
-  const featuredGames = featuredSpribeGames;
-
-  
   useEffect(() => {
     let isMounted = true;
     setIsLoading(true);
     setCurrentPage(1);
 
-    const providerQuery = getProviderQuery();
-
     api
-      .getGamesPage(providerQuery, 1, 50)
+      .getGamesPage("Spribe", 1, 50)
       .then((res) => {
         if (isMounted) {
           if (res.games && Array.isArray(res.games) && res.games.length > 0) {
             // Filter out 'mobile' duplicate games from catalog view
-            const filteredGames = res.games.filter(g => !g.name.toLowerCase().includes('mobile'));
-            const mapped = filteredGames.map((item, idx) => mapApiGame(item, idx));
+            const filtered = res.games.filter((g) => !g.name.toLowerCase().includes("mobile"));
+            const mapped = filtered.map((item, idx) => mapApiGame(item, idx));
             setCatalogGames(mapped);
             setHasMore(res.hasMore);
             setTotalGames(res.total);
@@ -250,7 +143,7 @@ export const GameGrid: React.FC<GameGridProps> = ({
       })
       .catch((err) => {
         if (isMounted) {
-          console.warn("Could not load games from API:", err);
+          console.warn("Could not load Spribe games from API:", err);
           setCatalogGames([]);
           setHasMore(false);
           setIsLoading(false);
@@ -260,21 +153,20 @@ export const GameGrid: React.FC<GameGridProps> = ({
     return () => {
       isMounted = false;
     };
-  }, [selectedFilter, selectedSubProvider, mapApiGame, getProviderQuery]);
+  }, [mapApiGame]);
 
   // Load Next Page of Games ("View More Games")
   const handleLoadMore = async () => {
     if (isLoadingMore || !hasMore) return;
     setIsLoadingMore(true);
 
-    const providerQuery = getProviderQuery();
     const nextPage = currentPage + 1;
 
     try {
-      const res = await api.getGamesPage(providerQuery, nextPage, 50);
+      const res = await api.getGamesPage("Spribe", nextPage, 50);
       if (res.games && Array.isArray(res.games) && res.games.length > 0) {
-        const filteredGames = res.games.filter(g => !g.name.toLowerCase().includes('mobile'));
-        const mapped = filteredGames.map((item, idx) => mapApiGame(item, catalogGames.length + idx));
+        const filtered = res.games.filter((g) => !g.name.toLowerCase().includes("mobile"));
+        const mapped = filtered.map((item, idx) => mapApiGame(item, catalogGames.length + idx));
         setCatalogGames((prev) => [...prev, ...mapped]);
         setCurrentPage(nextPage);
         setHasMore(res.hasMore);
@@ -283,7 +175,7 @@ export const GameGrid: React.FC<GameGridProps> = ({
         setHasMore(false);
       }
     } catch (err) {
-      console.warn("Failed to load more games:", err);
+      console.warn("Failed to load more Spribe games:", err);
     } finally {
       setIsLoadingMore(false);
     }
@@ -320,45 +212,16 @@ export const GameGrid: React.FC<GameGridProps> = ({
         return false;
       }
 
-      if (selectedFilter === "spribe") {
-        const provClean = (game.provider || "").toLowerCase();
-        const catClean = (game.category || "").toLowerCase();
-        const nameClean = (game.name || "").toLowerCase();
-        const isSpribe =
-          provClean.includes("spribe") ||
-          catClean.includes("spribe") ||
-          nameClean.includes("aviator") ||
-          nameClean.includes("balloon") ||
-          nameClean.includes("plinko") ||
-          nameClean.includes("mines") ||
-          nameClean.includes("dice") ||
-          nameClean.includes("hilo") ||
-          nameClean.includes("keno") ||
-          nameClean.includes("roulette") ||
-          nameClean.includes("pilot") ||
-          nameClean.includes("trader") ||
-          nameClean.includes("soccer") ||
-          nameClean.includes("hotline");
-        if (!isSpribe) return false;
-      } else if (selectedFilter === "provider") {
-        if (selectedSubProvider && selectedSubProvider !== "all") {
-          const subClean = selectedSubProvider.toLowerCase().replace(/[^a-z0-9]/g, "");
-          const provClean = (game.provider || "").toLowerCase().replace(/[^a-z0-9]/g, "");
-          if (!provClean.includes(subClean) && !subClean.includes(provClean)) return false;
-        }
-      }
-
       const q = searchQuery.toLowerCase().trim();
       const matchesSearch =
         !q ||
         game.title.toLowerCase().includes(q) ||
         game.name.toLowerCase().includes(q) ||
-        (game.provider && game.provider.toLowerCase().includes(q)) ||
         game.categories?.some((c) => c.includes(q));
 
       return matchesSearch;
     });
-  }, [catalogGames, selectedFilter, selectedSubProvider, searchQuery, isMobileDevice]);
+  }, [catalogGames, searchQuery, isMobileDevice]);
 
   // Open Game directly on dedicated GamePlayPage with Header
   const handleLaunchGame = (game: GameItem) => {
@@ -387,6 +250,82 @@ export const GameGrid: React.FC<GameGridProps> = ({
     showToast?.(`${promoName} activated! Approach Cashier Desk to claim.`);
   };
 
+interface LiveRoundItem {
+  id: string;
+  code: string;
+  m1: string;
+  m2: string;
+  type: "pink" | "purple" | "blue" | "cyan";
+}
+
+  // Live simulated Aviator multiplier round history for sidebar (Screenshot 2 design)
+  const [liveRounds, setLiveRounds] = useState<LiveRoundItem[]>([
+    { id: "680 747", code: "ESG 900100", m1: "50.25", m2: "10.25", type: "pink" },
+    { id: "712 403", code: "ESG 900100", m1: "40.25", m2: "75.25", type: "purple" },
+    { id: "594 118", code: "ESG 900100", m1: "9.25", m2: "6.25", type: "blue" },
+  ]);
+
+  useEffect(() => {
+    const roundInterval = setInterval(() => {
+      const randomId = `${Math.floor(100 + Math.random() * 900)} ${Math.floor(
+        100 + Math.random() * 900
+      )}`;
+
+      const m1 = (1.1 + Math.random() * 30).toFixed(2);
+      const m2 = (1.2 + Math.random() * 50).toFixed(2);
+
+      const types = ["pink", "purple", "blue", "cyan"] as const;
+      const type = types[Math.floor(Math.random() * types.length)];
+
+      setLiveRounds((prev) => [
+        {
+          id: randomId,
+          code: "ESG 900100",
+          m1,
+          m2,
+          type,
+        },
+        ...prev.slice(0, 2),
+      ]);
+    }, 4000);
+
+    return () => clearInterval(roundInterval);
+  }, []);
+
+  const handleLaunchAviator = (stake?: string) => {
+    const aviatorGame =
+      catalogGames.find((g) => g.name.toLowerCase().includes("aviator")) ||
+      catalogGames[0];
+    if (aviatorGame) {
+      if (stake && showToast) {
+        showToast(`Launching Aviator with Quick Stake $${stake}...`);
+      }
+      handleLaunchGame(aviatorGame);
+    }
+  };
+
+  // Sort games matching the row-by-row arrangement in Screenshot 2
+  const sortedGames = useMemo(() => {
+    const getScore = (name: string) => {
+      const n = name.toLowerCase();
+      if (n.includes("aviator")) return 1;
+      if (n.includes("dice")) return 2;
+      if (n.includes("goal") || n.includes("soccer") || n.includes("football")) return 3;
+      if (n.includes("plinko")) return 4;
+      if (n.includes("wheel") || n.includes("roulette") || n.includes("miniroulette")) return 5;
+      if (n.includes("mines") || n.includes("mine")) return 6;
+      if (n.includes("hotline")) return 7;
+      if (n.includes("hilo") || n.includes("hi-lo")) return 8;
+      if (n.includes("keno80") || n.includes("keno 80") || n.includes("kino80") || n.includes("kino 80") || ((n.includes("keno") || n.includes("kino")) && n.includes("80"))) return 9;
+      if (n.includes("keno") || n.includes("kino")) return 10;
+      if (n.includes("balloon") || n.includes("ballon")) return 11;
+      if (n.includes("trader") || n.includes("trade")) return 12;
+      if (n.includes("pilot")) return 13;
+      return 99;
+    };
+    return [...filteredGames].sort((a, b) => getScore(a.name) - getScore(b.name));
+  }, [filteredGames]);
+
   return (
     <>
       {/* ==============================================================
@@ -395,231 +334,199 @@ export const GameGrid: React.FC<GameGridProps> = ({
       {!isTerminal && <LiveWinnersTicker />}
 
       {/* ==============================================================
-           SECTION 2: SEARCH & 3 CATEGORY TABS (ALL GAMES, SPRIBE, PROVIDER)
+           SECTION 2: SPRIBE SHOWCASE & GAMES GRID (Screenshot 2 Theme Layout)
       =============================================================== */}
       <section id="categorySection" className="mb-5 showcase-block-panel">
-        <div className="section-header-bar">
-          <div className="d-flex align-items-center gap-3">
-            <h2 className="section-header-title mb-0">
-              <i className="fa-solid fa-gamepad text-warning"></i> Game Categories
-            </h2>
-          </div>
-          <div className="d-flex align-items-center gap-2">
-            <button
-              type="button"
-              id="viewAllGamesBtn"
-              className={`btn btn-sm ${
-                selectedFilter === "all"
-                  ? "btn-warning text-dark fw-bold shadow-sm"
-                  : "btn-outline-warning text-warning"
-              } rounded-pill px-3 d-inline-flex align-items-center gap-1`}
-              onClick={() => scrollToCatalog("all")}
-            >
-              <i className="fa-solid fa-grid-2"></i> All Games ({totalGames || catalogGames.length})
-            </button>
-            <button
-              type="button"
-              className="btn btn-sm btn-outline-secondary text-light rounded-pill px-3"
-              onClick={() => {
-                setSelectedFilter("all");
-                setSelectedSubProvider("all");
-                setSearchQuery("");
-              }}
-            >
-              <i className="fa-solid fa-arrows-rotate me-1"></i> Reset
-            </button>
-          </div>
-        </div>
-
-        {/* Category Navigation Bar (Strictly 3 Tabs: ALL GAMES, SPRIBE, PROVIDER) & Search */}
-        <div className="category-nav-bar">
-          <div className="category-scroll-container" id="categoryTabs">
-            {CATEGORY_TABS.map((tab) => (
-              <div
-                key={tab.id}
-                className={`cat-pill ${selectedFilter === tab.id ? "active" : ""}`}
-                onClick={() => {
-                  setSelectedFilter(tab.id);
-                  if (tab.id !== "provider") {
-                    setSelectedSubProvider("all");
-                  }
-                }}
-              >
-                {tab.id === "all" ? (
-                  <i className="fa-solid fa-layer-group text-warning"></i>
-                ) : tab.id === "spribe" ? (
-                  <i className="fa-solid fa-gamepad" style={{ color: selectedFilter === "spribe" ? "#ffffff" : "#00e5ff" }}></i>
-                ) : (
-                  <i className="fa-solid fa-network-wired" style={{ color: selectedFilter === "provider" ? "#ffffff" : "#c084fc" }}></i>
-                )}
-                <span>{tab.label}</span>
-                {tab.isHot && (
-                  <span className="hot-tag">
-                    <i className="fa-solid fa-fire"></i> HOT
+        <div className="spribe-showcase-wrap">
+          <div className="spribe-showcase-layout">
+            {/* Left Sidebar Card (Screenshot 2 design) */}
+            <div className="spribe-sidebar-card">
+              <div className="spribe-sidebar-card-top">
+                <div className="spribe-badge-row">
+                  <span className="spribe-turbo-tag">
+                    <i className="fa-solid fa-bolt"></i> TURBO SUITE
                   </span>
-                )}
-              </div>
-            ))}
-          </div>
+                  <span className="spribe-radar-status">
+                    <span className="spribe-pulse-ping"></span> RADAR LIVE
+                  </span>
+                </div>
 
-          {/* Search Bar & Count */}
-          <div className="d-flex align-items-center gap-3 ms-auto mt-2 mt-md-0">
-            <div className="search-box-station">
-              <i className="fa-solid fa-magnifying-glass"></i>
-              <input
-                type="text"
-                id="gameSearchInput"
-                placeholder="Search live games..."
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-                spellCheck={false}
-              />
-              {searchQuery && (
-                <button
-                  type="button"
-                  className="clear-btn"
-                  onClick={() => setSearchQuery("")}
-                >
-                  <i className="fa-solid fa-xmark"></i>
-                </button>
+                <h2 className="spribe-sidebar-title">
+                  SPRIBE <span className="text-warning">TURBO</span>
+                </h2>
+                <p className="spribe-sidebar-desc">
+                  High-speed crash, instant multipliers &amp; Provably Fair arcade games with instant cashier cashout.
+                </p>
+
+                {/* Telemetry Header */}
+                <div className="spribe-telemetry-header">
+                  <span className="telemetry-label">
+                    <i className="fa-solid fa-satellite-dish"></i> AVIATOR TELEMETRY
+                  </span>
+                  <span className="telemetry-updated">REAL-TIME</span>
+                </div>
+
+                {/* Live Flights / Multiplier History */}
+                <div className="spribe-round-list">
+                  {liveRounds.map((round, idx) => (
+                    <div key={idx} className="spribe-round-row">
+                      <div className="spribe-round-meta">
+                        <i className="fa-solid fa-plane-up spribe-plane-icon"></i>
+                        <div>
+                          <div className="spribe-round-id">#{round.id}</div>
+                          <div className="spribe-round-sub">{round.code}</div>
+                        </div>
+                      </div>
+                      <div className="spribe-multiplier-group">
+                        <span className={`spribe-multi-chip ${round.type}`}>
+                          x {round.m1}
+                        </span>
+                        <span className={`spribe-multi-chip ${round.type}`}>
+                          x {round.m2}
+                        </span>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              {/* Bottom Quick Bet Launchpad */}
+              <div className="spribe-sidebar-actions-wrap">
+                <div className="spribe-stake-chips-row">
+                  <span className="stake-label">QUICK STAKE:</span>
+                  <button
+                    type="button"
+                    className="spribe-stake-chip"
+                    onClick={() => handleLaunchAviator("1.00")}
+                  >
+                    $1.00
+                  </button>
+                  <button
+                    type="button"
+                    className="spribe-stake-chip"
+                    onClick={() => handleLaunchAviator("5.00")}
+                  >
+                    $5.00
+                  </button>
+                  <button
+                    type="button"
+                    className="spribe-stake-chip"
+                    onClick={() => handleLaunchAviator("10.00")}
+                  >
+                    $10.00
+                  </button>
+                  <button
+                    type="button"
+                    className="spribe-stake-chip"
+                    onClick={() => handleLaunchAviator("25.00")}
+                  >
+                    $25.00
+                  </button>
+                </div>
+
+                <div className="spribe-sidebar-actions">
+                  <button
+                    type="button"
+                    className="spribe-bet-btn spribe-bet-primary"
+                    onClick={() => handleLaunchAviator("1.00")}
+                  >
+                    <i className="fa-solid fa-jet-fighter"></i> LAUNCH AVIATOR
+                  </button>
+                  <button
+                    type="button"
+                    className="spribe-bet-btn spribe-bet-turbo"
+                    onClick={() => handleLaunchAviator("5.00")}
+                  >
+                    <i className="fa-solid fa-bolt"></i> TURBO $5
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            {/* Right Spribe Games Grid (Screenshot 2 design) */}
+            <div className="spribe-grid-wrap">
+              {isLoading ? (
+                <div className="spribe-grid">
+                  {[1, 2, 3, 4, 5, 6, 7, 8].map((n) => (
+                    <div
+                      key={n}
+                      className="p-4 rounded-4 text-center d-flex flex-column align-items-center justify-content-center"
+                      style={{
+                        height: "165px",
+                        background: "rgba(13, 5, 29, 0.7)",
+                        border: "1px solid rgba(147, 51, 234, 0.25)",
+                        animation: "pulse 1.5s infinite ease-in-out",
+                      }}
+                    >
+                      <div className="spinner-border text-warning spinner-border-sm mb-2" role="status"></div>
+                      <span className="text-secondary small fw-bold">Loading...</span>
+                    </div>
+                  ))}
+                </div>
+              ) : (
+                <div className="spribe-grid" id="categoryGamesGridContainer">
+                  {sortedGames.map((game) => (
+                    <GameCard key={game.id} game={game} onPlay={handleLaunchGame} />
+                  ))}
+                </div>
               )}
             </div>
           </div>
         </div>
 
-        {/* Dynamic Theme-Friendly Chamfered Provider Sub-Pills when PROVIDER tab is active */}
-        {selectedFilter === "provider" && availableProviders.length > 0 && (
-          <div className="provider-subpills-wrap mt-2">
-            <div
-              className={`cat-pill cat-pill-sm ${selectedSubProvider === "all" ? "active" : ""}`}
-              onClick={() => setSelectedSubProvider("all")}
-            >
-              <i className="fa-solid fa-cubes" style={{ color: selectedSubProvider === "all" ? "#ffffff" : "#f59e0b" }}></i>
-              <span>ALL PROVIDERS ({availableProviders.length})</span>
-            </div>
-            {availableProviders.map((prov) => {
-              const isSelected = selectedSubProvider === prov;
-              const icon = getProviderIcon(prov);
-              return (
-                <div
-                  key={prov}
-                  className={`cat-pill cat-pill-sm ${isSelected ? "active" : ""}`}
-                  onClick={() => setSelectedSubProvider(prov)}
-                >
-                  <i
-                    className={icon}
-                    style={{
-                      color: isSelected ? "#ffffff" : "#00e5ff",
-                      filter: "drop-shadow(0 0 6px rgba(0, 229, 255, 0.7))",
-                    }}
-                  ></i>
-                  <span>{prov.toUpperCase()}</span>
-                </div>
-              );
-            })}
-          </div>
-        )}
-
-        {/* Loading Skeletons */}
-        {isLoading && (
-          <div className="row g-3 mt-3">
-            {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12].map((n) => (
-              <div key={n} className="col-6 col-md-4 col-lg-3 col-xl-2">
-                <div
-                  className="p-4 rounded-4 text-center d-flex flex-column align-items-center justify-content-center"
-                  style={{
-                    height: "250px",
-                    background: "rgba(13, 5, 29, 0.7)",
-                    border: "1px solid rgba(147, 51, 234, 0.25)",
-                    animation: "pulse 1.5s infinite ease-in-out",
-                  }}
-                >
-                  <div className="spinner-border text-warning spinner-border-sm mb-2" role="status"></div>
-                  <span className="text-secondary small fw-bold">Loading Live Game...</span>
-                </div>
-              </div>
-            ))}
-          </div>
-        )}
-
-        {/* Filtered Games Grid (Pure API) */}
-        {!isLoading && (
-          <div className="games-grid mt-3" id="categoryGamesGridContainer">
-            {filteredGames.map((game) => (
-              <GameCard key={game.id} game={game} onPlay={handleLaunchGame} />
-            ))}
-          </div>
-        )}
-
-        {/* View More Games Pagination Loader Section (Left-Right Layout) */}
-        {!isLoading && filteredGames.length > 0 && (
+        {/* View More Games Pagination Loader Section */}
+        {!isLoading && filteredGames.length > 0 && hasMore && (
           <div className="d-flex flex-column flex-md-row align-items-center justify-content-between mt-4 pt-3 pb-2 border-top border-purple-subtle gap-3 px-2">
-            {hasMore ? (
-              <>
-                {/* Left Side: Game Count & Progress Bar */}
-                <div className="d-flex align-items-center gap-3">
-                  <div className="text-secondary small">
-                    Showing <strong className="text-warning">{catalogGames.length}</strong> of{" "}
-                    <strong className="text-light">{totalGames}</strong> Live Games
-                  </div>
-                  <div
-                    className="progress"
-                    style={{
-                      width: "140px",
-                      height: "7px",
-                      backgroundColor: "rgba(255,255,255,0.1)",
-                      borderRadius: "10px",
-                    }}
-                  >
-                    <div
-                      className="progress-bar bg-warning"
-                      style={{
-                        width: `${Math.min(100, Math.round((catalogGames.length / (totalGames || 1)) * 100))}%`,
-                        borderRadius: "10px",
-                      }}
-                    ></div>
-                  </div>
-                  <span className="badge bg-dark text-warning border border-warning border-opacity-25 rounded-pill px-2 py-1 small">
-                    {Math.min(100, Math.round((catalogGames.length / (totalGames || 1)) * 100))}%
-                  </span>
-                </div>
+            {/* Left Side: Game Count & Progress Bar */}
+            <div className="d-flex align-items-center gap-3">
+              <div className="text-secondary small">
+                Showing <strong className="text-warning">{catalogGames.length}</strong> of{" "}
+                <strong className="text-light">{totalGames}</strong> Live Games
+              </div>
+              <div
+                className="progress"
+                style={{
+                  width: "140px",
+                  height: "7px",
+                  backgroundColor: "rgba(255,255,255,0.1)",
+                  borderRadius: "10px",
+                }}
+              >
+                <div
+                  className="progress-bar bg-warning"
+                  style={{
+                    width: `${Math.min(100, Math.round((catalogGames.length / (totalGames || 1)) * 100))}%`,
+                    borderRadius: "10px",
+                  }}
+                ></div>
+              </div>
+              <span className="badge bg-dark text-warning border border-warning border-opacity-25 rounded-pill px-2 py-1 small">
+                {Math.min(100, Math.round((catalogGames.length / (totalGames || 1)) * 100))}%
+              </span>
+            </div>
 
-                {/* Right Side: View More Games Button */}
-                <div>
-                  <button
-                    id="viewMoreGamesBtn"
-                    type="button"
-                    className="btn btn-warning text-dark fw-bold rounded-pill px-4 py-2 d-inline-flex align-items-center gap-2 shadow-sm transition-all"
-                    onClick={handleLoadMore}
-                    disabled={isLoadingMore}
-                  >
-                    {isLoadingMore ? (
-                      <>
-                        <span className="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
-                        Loading more games...
-                      </>
-                    ) : (
-                      <>
-                        <i className="fa-solid fa-angles-down"></i>
-                        View More Games (+50)
-                      </>
-                    )}
-                  </button>
-                </div>
-              </>
-            ) : (
-              <>
-                <div className="text-secondary small">
-                  Showing all <strong className="text-warning">{totalGames || catalogGames.length}</strong> games
-                </div>
-                <div className="d-flex align-items-center gap-2 text-secondary small py-2 px-3 rounded-pill bg-dark border border-secondary border-opacity-25">
-                  <i className="fa-solid fa-circle-check text-success"></i>
-                  <span>
-                    All <strong className="text-warning">{totalGames || catalogGames.length}</strong> Live Games Loaded
-                  </span>
-                </div>
-              </>
-            )}
+            {/* Right Side: View More Games Button */}
+            <div>
+              <button
+                id="viewMoreGamesBtn"
+                type="button"
+                className="btn btn-warning text-dark fw-bold rounded-pill px-4 py-2 d-inline-flex align-items-center gap-2 shadow-sm transition-all"
+                onClick={handleLoadMore}
+                disabled={isLoadingMore}
+              >
+                {isLoadingMore ? (
+                  <>
+                    <span className="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                    Loading more games...
+                  </>
+                ) : (
+                  <>
+                    <i className="fa-solid fa-angles-down"></i>
+                    View More Games (+50)
+                  </>
+                )}
+              </button>
+            </div>
           </div>
         )}
 
@@ -635,15 +542,14 @@ export const GameGrid: React.FC<GameGridProps> = ({
                 ? `No live games matching "${searchQuery}". Try another keyword or filter.`
                 : "No live games found in this category from provider."}
             </p>
-            <button
-              className="btn btn-outline-warning rounded-pill px-4 py-2"
-              onClick={() => {
-                setSelectedFilter("all");
-                setSearchQuery("");
-              }}
-            >
-              Show All Games
-            </button>
+            {searchQuery && (
+              <button
+                className="btn btn-outline-warning rounded-pill px-4 py-2"
+                onClick={() => setSearchQuery("")}
+              >
+                Clear Search
+              </button>
+            )}
           </div>
         )}
       </section>
@@ -656,132 +562,8 @@ export const GameGrid: React.FC<GameGridProps> = ({
            - VIP Promotions & Perks
            - Smart PC Help Bar
       =============================================================== */}
-      {!isTerminal && !isLoading && featuredGames.length > 0 && (
+      {!isTerminal && !isLoading && (
         <>
-          {/* SECTION 3: LIVE FEATURED PICKS (SWIPER SLIDER) */}
-          <section id="featuredSection" className="mb-5 showcase-block-panel">
-            <div className="section-header-bar" id="featuredHeader">
-              <h2 className="section-header-title">
-                <i className="fa-solid fa-crown text-warning"></i> Featured Live Provider Picks
-              </h2>
-              <div className="d-flex align-items-center gap-2">
-                <button
-                  type="button"
-                  className="btn btn-sm btn-outline-warning rounded-pill px-3 d-none d-sm-inline-flex align-items-center gap-1"
-                  onClick={() => scrollToCatalog("all")}
-                >
-                  <i className="fa-solid fa-layer-group"></i> View In Catalog
-                </button>
-                <button
-                  type="button"
-                  className="swiper-nav-btn swiper-featured-prev"
-                  aria-label="Previous Featured"
-                >
-                  <i className="fa-solid fa-chevron-left"></i>
-                </button>
-                <button
-                  type="button"
-                  className="swiper-nav-btn swiper-featured-next"
-                  aria-label="Next Featured"
-                >
-                  <i className="fa-solid fa-chevron-right"></i>
-                </button>
-              </div>
-            </div>
-
-            <Swiper
-              modules={[Navigation, Autoplay, FreeMode]}
-              navigation={{
-                prevEl: ".swiper-featured-prev",
-                nextEl: ".swiper-featured-next",
-              }}
-              autoplay={{
-                delay: 4000,
-                disableOnInteraction: false,
-                pauseOnMouseEnter: true,
-              }}
-              freeMode={true}
-              slidesPerView={2}
-              spaceBetween={14}
-              breakpoints={{
-                480: { slidesPerView: 2, spaceBetween: 14 },
-                576: { slidesPerView: 3, spaceBetween: 14 },
-                768: { slidesPerView: 4, spaceBetween: 14 },
-                992: { slidesPerView: 5, spaceBetween: 16 },
-                1200: { slidesPerView: 7, spaceBetween: 16 },
-              }}
-              className="casino-swiper-slider"
-            >
-              {featuredGames.map((game) => (
-                <SwiperSlide key={`featured-${game.id}`}>
-                  <GameCard game={game} onPlay={handleLaunchGame} />
-                </SwiperSlide>
-              ))}
-            </Swiper>
-          </section>
-
-          {/* SECTION 4: LIVE POPULAR GAMES (SWIPER SLIDER) */}
-          <section id="popularSection" className="mb-5 showcase-block-panel">
-            <div className="section-header-bar" id="popularHeader">
-              <h2 className="section-header-title">
-                <i className="fa-solid fa-fire text-danger"></i> Popular High-Action Games
-              </h2>
-              <div className="d-flex align-items-center gap-2">
-                <button
-                  type="button"
-                  className="btn btn-sm btn-outline-danger rounded-pill px-3 d-none d-sm-inline-flex align-items-center gap-1"
-                  onClick={() => scrollToCatalog("all")}
-                >
-                  <i className="fa-solid fa-fire"></i> View All Games
-                </button>
-                <button
-                  type="button"
-                  className="swiper-nav-btn swiper-popular-prev"
-                  aria-label="Previous Popular"
-                >
-                  <i className="fa-solid fa-chevron-left"></i>
-                </button>
-                <button
-                  type="button"
-                  className="swiper-nav-btn swiper-popular-next"
-                  aria-label="Next Popular"
-                >
-                  <i className="fa-solid fa-chevron-right"></i>
-                </button>
-              </div>
-            </div>
-
-            <Swiper
-              modules={[Navigation, Autoplay, FreeMode]}
-              navigation={{
-                prevEl: ".swiper-popular-prev",
-                nextEl: ".swiper-popular-next",
-              }}
-              autoplay={{
-                delay: 3500,
-                disableOnInteraction: false,
-                pauseOnMouseEnter: true,
-              }}
-              freeMode={true}
-              slidesPerView={2}
-              spaceBetween={14}
-              breakpoints={{
-                480: { slidesPerView: 2, spaceBetween: 14 },
-                576: { slidesPerView: 3, spaceBetween: 14 },
-                768: { slidesPerView: 4, spaceBetween: 14 },
-                992: { slidesPerView: 5, spaceBetween: 16 },
-                1200: { slidesPerView: 7, spaceBetween: 16 },
-              }}
-              className="casino-swiper-slider"
-            >
-              {popularGames.map((game) => (
-                <SwiperSlide key={`popular-${game.id}`}>
-                  <GameCard game={game} onPlay={handleLaunchGame} />
-                </SwiperSlide>
-              ))}
-            </Swiper>
-          </section>
-
           {/* SECTION 5: DAILY TOURNAMENTS & CHALLENGES ARENA */}
           <TournamentSection onJoinTournament={handleJoinTournament} />
 

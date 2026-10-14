@@ -44,7 +44,7 @@ export const SmartPCHeroBanner: React.FC<SmartPCHeroBannerProps> = () => {
           =============================================================== */}
           <SwiperSlide>
             <div className="smartpc-slide p-0">
-              <img src="/assets/banner/1.png" alt="Banner 1" style={{ width: "100%", height: "100%", objectFit: "cover", position: "absolute", inset: 0 }} />
+              <img src="/assets/banner/bn1.png" alt="Banner 1" style={{ width: "100%", height: "100%", objectFit: "cover", position: "absolute", inset: 0 }} />
             </div>
           </SwiperSlide>
 
@@ -53,7 +53,7 @@ export const SmartPCHeroBanner: React.FC<SmartPCHeroBannerProps> = () => {
           =============================================================== */}
           <SwiperSlide>
             <div className="smartpc-slide p-0">
-              <img src="/assets/banner/2.png" alt="Banner 2" style={{ width: "100%", height: "100%", objectFit: "cover", position: "absolute", inset: 0 }} />
+              <img src="/assets/banner/bn2.png" alt="Banner 2" style={{ width: "100%", height: "100%", objectFit: "cover", position: "absolute", inset: 0 }} />
             </div>
           </SwiperSlide>
 
@@ -62,7 +62,7 @@ export const SmartPCHeroBanner: React.FC<SmartPCHeroBannerProps> = () => {
           =============================================================== */}
           <SwiperSlide>
             <div className="smartpc-slide p-0">
-              <img src="/assets/banner/3.png" alt="Banner 3" style={{ width: "100%", height: "100%", objectFit: "cover", position: "absolute", inset: 0 }} />
+              <img src="/assets/banner/bn3.png" alt="Banner 3" style={{ width: "100%", height: "100%", objectFit: "cover", position: "absolute", inset: 0 }} />
             </div>
           </SwiperSlide>
         </Swiper>

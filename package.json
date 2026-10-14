@@ -1,16 +1,19 @@
 {
   "name": "winbet-frontend",
   "private": true,
-  "version": "1.0.1",
+  "version": "1.0.2",
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "tsc -b && vite build",
+    "build": "bash -c 'for n in \"$HOME/.nvm/versions/node/v22.23.3/bin\" \"$HOME/.nvm/versions/node/v20.20.2/bin\" \"$HOME/.nvm/versions/node/v24.11.1/bin\"; do [ -d \"$n\" ] && export PATH=\"$n:$PATH\" && break; done; npm exec -- tsc -b && npm exec -- vite build'",
     "lint": "oxlint",
     "preview": "vite preview",
+    "clean:cache": "rm -rf ~/.local/share/com.winbet.smartpc ~/.cache/com.winbet.smartpc dist node_modules/.vite",
     "tauri": "tauri",
     "tauri:dev": "tauri dev",
-    "tauri:build": "tauri build"
+    "tauri:dev:clean": "npm run clean:cache && tauri dev",
+    "tauri:build": "bash -c 'for n in \"$HOME/.nvm/versions/node/v22.23.3/bin\" \"$HOME/.nvm/versions/node/v20.20.2/bin\" \"$HOME/.nvm/versions/node/v24.11.1/bin\"; do [ -d \"$n\" ] && export PATH=\"$n:$PATH\" && break; done; tauri build \"$@\"' --",
+    "tauri:build:win": "bash -c 'for n in \"$HOME/.nvm/versions/node/v22.23.3/bin\" \"$HOME/.nvm/versions/node/v20.20.2/bin\" \"$HOME/.nvm/versions/node/v24.11.1/bin\"; do [ -d \"$n\" ] && export PATH=\"$n:$PATH\" && break; done; tauri build --target x86_64-pc-windows-gnu -b nsis'"
   },
   "dependencies": {
     "@fortawesome/fontawesome-free": "^7.3.1",

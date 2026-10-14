@@ -9,121 +9,128 @@ export const VipPromotionsSection: React.FC<VipPromotionsSectionProps> = ({
   onClaimPromo,
   onOpenCashout,
 }) => {
-  const PROMOS = [
+  const PERKS = [
     {
       id: "reload",
-      icon: "fa-solid fa-gift",
-      iconColor: "#f5b300",
+      theme: "vault-gold",
+      badge3d: "/assets/images/vip/1.png",
+      icon: "fa-solid fa-vault",
       tag: "DAILY BONUS",
-      tagClass: "bg-warning text-dark",
+      bigStat: "2X MATCH",
       title: "100% Reload Bonus",
       desc: "Top up your session with the cashier and double your initial credits up to N$ 1,000!",
       actionText: "CLAIM AT CASHIER",
+      actionIcon: "fa-solid fa-coins",
       actionType: "claim",
     },
     {
       id: "cashback",
+      theme: "vault-emerald",
+      badge3d: "/assets/images/vip/2.png",
       icon: "fa-solid fa-shield-halved",
-      iconColor: "#22c55e",
-      tag: "VIP SHIELD",
-      tagClass: "bg-success text-light",
-      title: "15% Weekly Rebate",
-      desc: "Automatic cash protection. Get 15% cashback returned directly to your Smart PC balance every Monday.",
-      actionText: "VIP ACTIVATED",
+      tag: "AUTO REBATE",
+      bigStat: "15% BACK",
+      title: "Weekly Cash Shield",
+      desc: "Automatic cash protection. 15% cashback returned directly to your Smart PC balance every Monday.",
+      actionText: "SHIELD ACTIVE",
+      actionIcon: "fa-solid fa-check",
       actionType: "vip",
     },
     {
       id: "cashout-desk",
-      icon: "fa-solid fa-money-bill-wave",
-      iconColor: "#a855f7",
-      tag: "FAST PAYOUT",
-      tagClass: "bg-purple text-light",
+      theme: "vault-purple",
+      badge3d: "/assets/images/vip/3.png",
+      icon: "fa-solid fa-money-bill-transfer",
+      tag: "COUNTER PAY",
+      bigStat: "0s DELAY",
       title: "Instant Desk Cashout",
-      desc: "Click Cash Out at any time. Your session balance is locked and instantly paid in cash at the counter.",
+      desc: "Click Cash Out at any time. Session balance is locked and instantly paid in cash at the counter.",
       actionText: "REQUEST CASHOUT",
+      actionIcon: "fa-solid fa-hand-holding-dollar",
       actionType: "cashout",
     },
     {
       id: "highroller",
+      theme: "vault-cyan",
+      badge3d: "/assets/images/vip/4.png",
       icon: "fa-solid fa-gem",
-      iconColor: "#38bdf8",
-      tag: "HIGH ROLLER",
-      tagClass: "bg-info text-dark",
-      title: "Exclusive High Stakes Club",
-      desc: "Unlocked higher spin limits up to N$ 500 per spin with dedicated VIP shop assistance.",
+      tag: "HIGH LIMIT",
+      bigStat: "N$ 500 MAX",
+      title: "High Stakes Club",
+      desc: "Unlocked higher spin limits up to N$ 500 per spin with dedicated VIP shop manager support.",
       actionText: "VIEW PRIVILEGES",
+      actionIcon: "fa-solid fa-crown",
       actionType: "claim",
     },
   ];
 
   return (
-    <section className="vip-promos-section mb-5">
-      <div className="section-header-bar">
-        <h2 className="section-header-title">
-          <i className="fa-solid fa-award text-warning"></i> Smart PC VIP Club & Cashier Perks
-        </h2>
-        <span className="badge bg-dark border border-warning text-warning px-3 py-1 rounded-pill" style={{ fontSize: "0.75rem" }}>
-          <i className="fa-solid fa-star me-1"></i> MEMBERSHIP ACTIVE
-        </span>
+    <section className="vip-vault-section mb-5">
+      {/* Header bar */}
+      <div className="vip-vault-header">
+        <div className="vault-header-left">
+          <div className="vault-header-icon">
+            <i className="fa-solid fa-award"></i>
+          </div>
+          <div>
+            <h2 className="vault-header-title">Smart PC VIP Club & Cashier Perks</h2>
+            <div className="vault-header-sub">Exclusive shop floor privileges & instant cashier rewards</div>
+          </div>
+        </div>
+        <div className="vault-header-right">
+          <div className="vault-membership-badge">
+            <i className="fa-solid fa-certificate"></i>
+            <span>MEMBERSHIP ACTIVE</span>
+          </div>
+        </div>
       </div>
 
       <div className="row g-4">
-        {PROMOS.map((promo) => (
-          <div key={promo.id} className="col-12 col-sm-6 col-xl-3">
-            <div className="vip-promo-card h-100 d-flex flex-column justify-content-between">
-              <div>
-                <div className="d-flex align-items-center justify-content-between mb-3">
-                  <div
-                    className="vip-icon-box"
-                    style={{
-                      width: "44px",
-                      height: "44px",
-                      borderRadius: "12px",
-                      background: "rgba(255, 255, 255, 0.05)",
-                      border: `1.5px solid ${promo.iconColor}44`,
-                      display: "flex",
-                      alignItems: "center",
-                      justifyContent: "center",
-                      fontSize: "1.2rem",
-                      color: promo.iconColor,
-                      boxShadow: `0 0 15px ${promo.iconColor}22`,
-                    }}
-                  >
-                    <i className={promo.icon}></i>
+        {PERKS.map((perk) => (
+          <div key={perk.id} className="col-12 col-md-6 col-lg-3">
+            <div className={`vip-vault-card ${perk.theme}`}>
+              {/* Floating 3D Graphic Badge on Right */}
+              <div className="vault-3d-badge-wrap">
+                <img src={perk.badge3d} alt={perk.title} className="vault-3d-badge-img" />
+              </div>
+              <div className="vault-card-glow" />
+
+              <div className="vault-card-inner">
+                {/* Top Badge & Icon */}
+                <div className="vault-top-row">
+                  <div className="vault-icon-circle">
+                    <i className={perk.icon}></i>
                   </div>
-                  <span className={`badge ${promo.tagClass} fw-bold`} style={{ fontSize: "0.68rem", letterSpacing: "0.5px" }}>
-                    {promo.tag}
-                  </span>
+                  <span className="vault-badge">{perk.tag}</span>
                 </div>
 
-                <h4 className="vip-promo-title mb-2 text-light fw-bold" style={{ fontSize: "1.05rem" }}>
-                  {promo.title}
-                </h4>
-                <p className="vip-promo-desc text-secondary small mb-3" style={{ lineHeight: "1.45" }}>
-                  {promo.desc}
-                </p>
-              </div>
+                {/* Big Stat Callout */}
+                <div className="vault-stat-callout">{perk.bigStat}</div>
 
-              <button
-                type="button"
-                className={`btn btn-sm ${
-                  promo.actionType === "cashout"
-                    ? "btn-outline-warning"
-                    : promo.actionType === "vip"
-                    ? "btn-outline-success"
-                    : "btn-outline-primary text-light"
-                } rounded-pill py-2 w-100 fw-semibold`}
-                style={{ fontSize: "0.8rem", letterSpacing: "0.5px" }}
-                onClick={() => {
-                  if (promo.actionType === "cashout") {
-                    onOpenCashout?.();
-                  } else {
-                    onClaimPromo?.(promo.title);
-                  }
-                }}
-              >
-                {promo.actionText}
-              </button>
+                {/* Title & Description */}
+                <div className="vault-info">
+                  <h3 className="vault-card-title">{perk.title}</h3>
+                  <p className="vault-card-desc">{perk.desc}</p>
+                </div>
+
+                {/* Action CTA */}
+                <div className="vault-action-wrap">
+                  <button
+                    type="button"
+                    className={`vault-action-btn btn-${perk.theme}`}
+                    onClick={() => {
+                      if (perk.actionType === "cashout") {
+                        onOpenCashout?.();
+                      } else {
+                        onClaimPromo?.(perk.title);
+                      }
+                    }}
+                  >
+                    <i className={perk.actionIcon}></i>
+                    <span>{perk.actionText}</span>
+                  </button>
+                </div>
+              </div>
             </div>
           </div>
         ))}

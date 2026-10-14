@@ -1,6 +1,6 @@
 [package]
 name = "winbet-smart-pc"
-version = "1.0.0"
+version = "1.0.2"
 description = "WinBet Smart PC Gaming Terminal"
 authors = ["WinBet Gaming Central"]
 license = "Proprietary"

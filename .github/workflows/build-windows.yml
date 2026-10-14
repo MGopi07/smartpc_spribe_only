@@ -6,6 +6,8 @@ on:
       - main
       - master
       - smartpcapp
+      - new_updates_10_10_26
+      - '**'
   pull_request:
   workflow_dispatch:
 

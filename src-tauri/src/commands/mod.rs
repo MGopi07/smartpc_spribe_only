@@ -23,3 +23,18 @@ pub fn get_system_time() -> Result<String, String> {
         .map(|d| d.as_secs().to_string())
         .unwrap_or_default())
 }
+
+#[tauri::command]
+pub fn clear_app_cache(app: tauri::AppHandle) -> Result<(), String> {
+    use tauri::Manager;
+    if let Some(window) = app.get_webview_window("main") {
+        let _ = window.clear_all_browsing_data();
+    }
+    if let Ok(cache_dir) = app.path().app_cache_dir() {
+        if cache_dir.exists() {
+            let _ = std::fs::remove_dir_all(&cache_dir);
+        }
+    }
+    Ok(())
+}
+

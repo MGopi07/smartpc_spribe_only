@@ -10,37 +10,61 @@ export const SmartPCHelpBar: React.FC<SmartPCHelpBarProps> = ({
   shopName = "Central Shop"
 }) => {
   return (
-    <section className="smart-pc-help-banner mb-4 p-4 rounded-4">
-      <div className="row align-items-center g-4">
-        <div className="col-12 col-lg-8">
-          <div className="d-flex align-items-center gap-3">
-            <div className="help-icon-glow">
-              <i className="fa-solid fa-headset text-warning fs-3"></i>
+    <section className="smart-pc-help-banner mb-4">
+      <div className="help-banner-ambient" />
+      <div className="help-banner-content">
+        {/* Left Side: Support & Station Identity */}
+        <div className="help-left-section">
+          <div className="help-icon-glow">
+            <i className="fa-solid fa-headset"></i>
+            <span className="help-status-dot" />
+          </div>
+          <div className="help-text-group">
+            <div className="help-title-row">
+              <h4 className="help-banner-title">Need Help or Cash Balance Top-Up?</h4>
+              <span className="help-live-badge">
+                <i className="fa-solid fa-circle"></i> CASHIER ACTIVE
+              </span>
             </div>
-            <div>
-              <h4 className="text-light fw-bold mb-1" style={{ fontSize: "1.1rem" }}>
-                Need Help or Cash Balance Top-Up?
-              </h4>
-              <p className="text-secondary small mb-0" style={{ lineHeight: "1.4" }}>
-                Approach the {shopName} Cashier Counter with your Smart PC Station Number (<strong className="text-warning">{machineName}</strong>) for instant deposit, session top-up, or cashout assistance.
-              </p>
+            <p className="help-banner-desc">
+              Visit the <strong className="text-light">{shopName}</strong> counter for cash deposits, chip reloads, or voucher assistance.
+            </p>
+            <div className="help-chips-row">
+              <div className="help-station-chip">
+                <i className="fa-solid fa-desktop"></i>
+                <span>Station:</span>
+                <strong className="station-code">{machineName}</strong>
+              </div>
+              <div className="help-location-chip">
+                <i className="fa-solid fa-store"></i>
+                <span>Shop Desk:</span>
+                <strong>{shopName}</strong>
+              </div>
             </div>
           </div>
         </div>
 
-        <div className="col-12 col-lg-4">
-          <div className="d-flex flex-wrap align-items-center justify-content-lg-end gap-2">
-            <div className="trust-pill">
-              <i className="fa-solid fa-shield-check text-success"></i>
-              <span>CERTIFIED FAIR RNG</span>
+        {/* Right Side: Trust & Security Badges */}
+        <div className="help-right-section">
+          <div className="trust-pill trust-rng">
+            <i className="fa-solid fa-shield-halved"></i>
+            <div className="trust-pill-content">
+              <span className="trust-pill-sub">CERTIFIED</span>
+              <span className="trust-pill-title">FAIR RNG</span>
             </div>
-            <div className="trust-pill">
-              <i className="fa-solid fa-bolt text-warning"></i>
-              <span>INSTANT PAYOUTS</span>
+          </div>
+          <div className="trust-pill trust-payout">
+            <i className="fa-solid fa-bolt"></i>
+            <div className="trust-pill-content">
+              <span className="trust-pill-sub">INSTANT</span>
+              <span className="trust-pill-title">COUNTER PAY</span>
             </div>
-            <div className="trust-pill">
-              <i className="fa-solid fa-lock text-info"></i>
-              <span>STATION ENCRYPTED</span>
+          </div>
+          <div className="trust-pill trust-security">
+            <i className="fa-solid fa-lock"></i>
+            <div className="trust-pill-content">
+              <span className="trust-pill-sub">256-BIT</span>
+              <span className="trust-pill-title">ENCRYPTED</span>
             </div>
           </div>
         </div>

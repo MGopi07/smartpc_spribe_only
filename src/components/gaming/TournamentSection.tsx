@@ -6,7 +6,8 @@ interface TournamentSectionProps {
 
 export const TournamentSection: React.FC<TournamentSectionProps> = ({ onJoinTournament }) => {
   const [timeLeft, setTimeLeft] = useState({ hours: 4, minutes: 22, seconds: 38 });
-  const [hasJoined, setHasJoined] = useState(false);
+  const [joinedSlot, setJoinedSlot] = useState(false);
+  const [joinedAviator, setJoinedAviator] = useState(false);
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -25,181 +26,351 @@ export const TournamentSection: React.FC<TournamentSectionProps> = ({ onJoinTour
     return () => clearInterval(timer);
   }, []);
 
-  const handleJoin = (name: string) => {
-    setHasJoined(true);
-    onJoinTournament?.(name);
+  const handleJoinSlot = () => {
+    setJoinedSlot(true);
+    onJoinTournament?.("Grand Spribe Championship");
+  };
+
+  const handleJoinAviator = () => {
+    setJoinedAviator(true);
+    onJoinTournament?.("Aviator 100x Multiplier Hunt");
   };
 
   const padZero = (num: number) => num.toString().padStart(2, "0");
 
   return (
-    <section className="tournament-arena-section mb-5">
-      <div className="section-header-bar">
-        <h2 className="section-header-title">
-          <i className="fa-solid fa-trophy text-warning"></i> Betwise Daily Tournaments & Arenas
-        </h2>
-        <div className="d-flex align-items-center gap-2">
-          <span className="badge bg-danger-subtle text-danger border border-danger fw-bold px-3 py-1 rounded-pill" style={{ fontSize: "0.75rem" }}>
-            <i className="fa-solid fa-fire me-1"></i> 2 ARENAS LIVE
-          </span>
+    <section className="cyber-arena-section mb-5">
+      {/* Header bar */}
+      <div className="cyber-section-header">
+        <div className="cyber-header-left">
+          <div className="cyber-header-icon">
+            <i className="fa-solid fa-trophy"></i>
+          </div>
+          <div>
+            <h2 className="cyber-header-title">Daily Tournaments & Arenas</h2>
+            <div className="cyber-header-sub">Compete in live turbo races and share daily prize pools</div>
+          </div>
+        </div>
+        <div className="cyber-header-right">
+          <div className="cyber-live-pulse-badge">
+            <span className="live-radar-dot"></span>
+            <span>2 ARENAS ACTIVE</span>
+          </div>
         </div>
       </div>
 
       <div className="row g-4">
-        {/* Tournament 1: Grand Slot Sprint */}
+        {/* Tournament 1: Grand Spribe Championship */}
         <div className="col-12 col-xl-6">
-          <div className="tournament-card-glass">
-            <div className="tour-badge-strip">
-              <span className="tour-status-live">
-                <i className="fa-solid fa-circle"></i> LIVE SPRINT
-              </span>
-              <span className="tour-entry-free">
-                <i className="fa-solid fa-ticket me-1"></i> FREE ENTRY FOR SMART PC
-              </span>
-            </div>
+          <div className="cyber-arena-card arena-purple-gold">
+            <div
+              className="cyber-card-backdrop"
+              style={{ backgroundImage: `url('/assets/games/SPRIBE/DICE.png')` }}
+            />
+            <div className="cyber-card-glow" />
 
-            <div className="tour-card-body">
-              <div className="row align-items-center g-3">
-                <div className="col-12 col-md-7">
-                  <h3 className="tour-title mb-1">
-                    <i className="fa-solid fa-crown text-warning me-2"></i>
-                    Grand Slot Championship
+            <div className="cyber-card-content">
+              {/* Top Meta Strip */}
+              <div className="cyber-meta-strip">
+                <div className="cyber-badge-group">
+                  <span className="cyber-tag tag-live">
+                    <span className="tag-dot"></span> LIVE SPRINT
+                  </span>
+                  <span className="cyber-tag tag-perk">
+                    <i className="fa-solid fa-ticket"></i> FREE ENTRY
+                  </span>
+                </div>
+                <div className="cyber-timer-chip">
+                  <i className="fa-regular fa-clock"></i>
+                  <span>
+                    {padZero(timeLeft.hours)}:{padZero(timeLeft.minutes)}:{padZero(timeLeft.seconds)}
+                  </span>
+                </div>
+              </div>
+
+              {/* Title & Prize Showcase */}
+              <div className="cyber-card-hero">
+                <div className="cyber-hero-text">
+                  <h3 className="cyber-arena-title">
+                    <i className="fa-solid fa-crown title-icon-gold"></i>
+                    Grand Spribe Championship
                   </h3>
-                  <p className="tour-subtitle mb-3">
-                    Spin any Spribe or Classic Slot to score points. Top 10 players share the jackpot pool!
+                  <p className="cyber-arena-desc">
+                    Play any Spribe game to score points. Top 10 players share the daily jackpot pool!
                   </p>
+                </div>
 
-                  {/* Timer & Prize */}
-                  <div className="d-flex flex-wrap align-items-center gap-3 mb-3">
-                    <div className="tour-metric-pill">
-                      <span className="metric-label">PRIZE POOL</span>
-                      <span className="metric-val text-warning fw-bold">N$ 75,000</span>
+                <div className="cyber-prize-block">
+                  <div className="cyber-prize-label">TOTAL PRIZE POOL</div>
+                  <div className="cyber-prize-amount text-gold">N$ 75,000</div>
+                  <div className="cyber-prize-split">
+                    <span>🥇 50%</span>
+                    <span>🥈 30%</span>
+                    <span>🥉 20%</span>
+                  </div>
+                </div>
+              </div>
+
+              {/* 3-Step 3D Stadium Podium */}
+              <div className="cyber-podium-stage">
+                <div className="podium-stage-header">
+                  <div className="stage-title">
+                    <i className="fa-solid fa-ranking-star text-warning"></i>
+                    <span>TOP 3 CHAMPIONS</span>
+                  </div>
+                  <div className="stage-live-count">
+                    <i className="fa-solid fa-users"></i>
+                    <span>1,420 Active Racers</span>
+                  </div>
+                </div>
+
+                <div className="podium-pillars-grid">
+                  {/* 2nd Place (Silver) */}
+                  <div className="podium-column rank-2">
+                    <div className="podium-avatar-wrap silver-glow">
+                      <div className="podium-medal-badge silver">2nd</div>
+                      <div className="podium-avatar-circle silver-avatar">
+                        <i className="fa-solid fa-medal"></i>
+                      </div>
                     </div>
-
-                    <div className="tour-metric-pill">
-                      <span className="metric-label">ENDS IN</span>
-                      <span className="metric-val text-info fw-bold font-monospace">
-                        {padZero(timeLeft.hours)}:{padZero(timeLeft.minutes)}:{padZero(timeLeft.seconds)}
-                      </span>
+                    <div className="podium-player-name">Player #3041</div>
+                    <div className="podium-player-score">39,150 pts</div>
+                    <div className="podium-pedestal pedestal-silver">
+                      <span className="pedestal-rank-num">2</span>
+                      <div className="pedestal-shine"></div>
                     </div>
                   </div>
 
-                  <button
-                    type="button"
-                    className={`btn ${hasJoined ? "btn-success" : "btn-gold-action"} px-4 py-2 fw-bold w-100 w-sm-auto`}
-                    onClick={() => handleJoin("Grand Slot Championship")}
-                    disabled={hasJoined}
-                  >
-                    {hasJoined ? (
-                      <>
-                        <i className="fa-solid fa-check-circle me-1"></i> ENROLLED (RANK #4)
-                      </>
-                    ) : (
-                      <>
-                        <i className="fa-solid fa-flag-checkered me-1"></i> JOIN TOURNAMENT NOW
-                      </>
-                    )}
-                  </button>
-                </div>
+                  {/* 1st Place (Gold, Tall Center) */}
+                  <div className="podium-column rank-1">
+                    <div className="podium-crown-badge">
+                      <i className="fa-solid fa-crown"></i>
+                    </div>
+                    <div className="podium-avatar-wrap gold-glow">
+                      <div className="podium-medal-badge gold">1st</div>
+                      <div className="podium-avatar-circle gold-avatar">
+                        <i className="fa-solid fa-trophy"></i>
+                      </div>
+                    </div>
+                    <div className="podium-player-name gold-name">Player #9812</div>
+                    <div className="podium-player-score gold-score">48,200 pts</div>
+                    <div className="podium-pedestal pedestal-gold">
+                      <span className="pedestal-rank-num">1</span>
+                      <div className="pedestal-shine"></div>
+                    </div>
+                  </div>
 
-                {/* Mini Leaderboard Preview */}
-                <div className="col-12 col-md-5">
-                  <div className="tour-leaderboard-box">
-                    <div className="lb-title d-flex justify-content-between align-items-center mb-2">
-                      <span><i className="fa-solid fa-ranking-star text-warning me-1"></i> LEADERBOARD</span>
-                      <span className="small text-secondary">TOP 3</span>
+                  {/* 3rd Place (Bronze) */}
+                  <div className="podium-column rank-3">
+                    <div className="podium-avatar-wrap bronze-glow">
+                      <div className="podium-medal-badge bronze">3rd</div>
+                      <div className="podium-avatar-circle bronze-avatar">
+                        <i className="fa-solid fa-award"></i>
+                      </div>
                     </div>
-                    <div className="lb-item rank-1">
-                      <span className="lb-rank">🥇 1st</span>
-                      <span className="lb-name">Player #9812</span>
-                      <span className="lb-score">48,200 pts</span>
-                    </div>
-                    <div className="lb-item rank-2">
-                      <span className="lb-rank">🥈 2nd</span>
-                      <span className="lb-name">Player #3041</span>
-                      <span className="lb-score">39,150 pts</span>
-                    </div>
-                    <div className="lb-item rank-3">
-                      <span className="lb-rank">🥉 3rd</span>
-                      <span className="lb-name">Player #7749</span>
-                      <span className="lb-score">31,800 pts</span>
+                    <div className="podium-player-name">Player #7749</div>
+                    <div className="podium-player-score">31,800 pts</div>
+                    <div className="podium-pedestal pedestal-bronze">
+                      <span className="pedestal-rank-num">3</span>
+                      <div className="pedestal-shine"></div>
                     </div>
                   </div>
                 </div>
+              </div>
+
+              {/* Sprint Progress Gauge */}
+              <div className="cyber-progress-gauge">
+                <div className="gauge-header">
+                  <span className="gauge-label">
+                    <i className="fa-solid fa-gauge-high text-warning"></i> SPRINT COMPLETION
+                  </span>
+                  <span className="gauge-percentage">74% COMPLETE</span>
+                </div>
+                <div className="gauge-track">
+                  <div className="gauge-fill fill-purple" style={{ width: "74%" }}>
+                    <div className="gauge-fill-glint"></div>
+                  </div>
+                </div>
+              </div>
+
+              {/* Action CTA */}
+              <div className="cyber-cta-wrap">
+                <button
+                  type="button"
+                  className={`cyber-action-btn btn-gold ${joinedSlot ? "is-enrolled" : ""}`}
+                  onClick={handleJoinSlot}
+                  disabled={joinedSlot}
+                >
+                  {joinedSlot ? (
+                    <>
+                      <i className="fa-solid fa-circle-check"></i>
+                      <span>ENROLLED • RANK #4</span>
+                    </>
+                  ) : (
+                    <>
+                      <i className="fa-solid fa-flag-checkered"></i>
+                      <span>JOIN TOURNAMENT NOW</span>
+                    </>
+                  )}
+                </button>
               </div>
             </div>
           </div>
         </div>
 
-        {/* Tournament 2: Aviator Multiplier Cup */}
+        {/* Tournament 2: Aviator Multiplier Hunt */}
         <div className="col-12 col-xl-6">
-          <div className="tournament-card-glass tour-card-alt">
-            <div className="tour-badge-strip">
-              <span className="tour-status-live" style={{ background: "rgba(239, 68, 68, 0.2)", color: "#f87171", borderColor: "#ef4444" }}>
-                <i className="fa-solid fa-circle"></i> HIGH FLYER
-              </span>
-              <span className="tour-entry-free">
-                <i className="fa-solid fa-plane-departure me-1"></i> CRASH & INSTANT GAMES
-              </span>
-            </div>
+          <div className="cyber-arena-card arena-crimson-red">
+            <div
+              className="cyber-card-backdrop"
+              style={{ backgroundImage: `url('/assets/games/SPRIBE/AVIATOR.png')` }}
+            />
+            <div className="cyber-card-glow glow-red" />
 
-            <div className="tour-card-body">
-              <div className="row align-items-center g-3">
-                <div className="col-12 col-md-7">
-                  <h3 className="tour-title mb-1">
-                    <i className="fa-solid fa-rocket text-danger me-2"></i>
+            <div className="cyber-card-content">
+              {/* Top Meta Strip */}
+              <div className="cyber-meta-strip">
+                <div className="cyber-badge-group">
+                  <span className="cyber-tag tag-fire">
+                    <span className="tag-dot dot-red"></span> HIGH FLYER
+                  </span>
+                  <span className="cyber-tag tag-plane">
+                    <i className="fa-solid fa-plane"></i> CRASH & TURBO
+                  </span>
+                </div>
+                <div className="cyber-timer-chip chip-red">
+                  <i className="fa-regular fa-clock"></i>
+                  <span>
+                    {padZero(timeLeft.hours + 2)}:{padZero(timeLeft.minutes)}:{padZero(timeLeft.seconds)}
+                  </span>
+                </div>
+              </div>
+
+              {/* Title & Prize Showcase */}
+              <div className="cyber-card-hero">
+                <div className="cyber-hero-text">
+                  <h3 className="cyber-arena-title">
+                    <i className="fa-solid fa-rocket title-icon-red"></i>
                     Aviator 100x Multiplier Hunt
                   </h3>
-                  <p className="tour-subtitle mb-3">
-                    Hit highest cashout multipliers on Aviator, Pilot, Balloon or Mines to climb ranks!
+                  <p className="cyber-arena-desc">
+                    Catch highest cashout multipliers on Aviator, Pilot, Balloon & Mines to climb ranks!
                   </p>
+                </div>
 
-                  <div className="d-flex flex-wrap align-items-center gap-3 mb-3">
-                    <div className="tour-metric-pill">
-                      <span className="metric-label">PRIZE POOL</span>
-                      <span className="metric-val text-warning fw-bold">N$ 35,000</span>
+                <div className="cyber-prize-block">
+                  <div className="cyber-prize-label">TOTAL PRIZE POOL</div>
+                  <div className="cyber-prize-amount text-red">N$ 35,000</div>
+                  <div className="cyber-prize-split">
+                    <span>🥇 50%</span>
+                    <span>🥈 30%</span>
+                    <span>🥉 20%</span>
+                  </div>
+                </div>
+              </div>
+
+              {/* 3-Step 3D Stadium Podium */}
+              <div className="cyber-podium-stage">
+                <div className="podium-stage-header">
+                  <div className="stage-title">
+                    <i className="fa-solid fa-fire text-danger"></i>
+                    <span>TOP MULTIPLIERS HIT</span>
+                  </div>
+                  <div className="stage-live-count">
+                    <i className="fa-solid fa-users"></i>
+                    <span>985 Active Racers</span>
+                  </div>
+                </div>
+
+                <div className="podium-pillars-grid">
+                  {/* 2nd Place (Silver) */}
+                  <div className="podium-column rank-2">
+                    <div className="podium-avatar-wrap silver-glow">
+                      <div className="podium-medal-badge silver">2nd</div>
+                      <div className="podium-avatar-circle silver-avatar">
+                        <i className="fa-solid fa-medal"></i>
+                      </div>
                     </div>
-
-                    <div className="tour-metric-pill">
-                      <span className="metric-label">ENDS IN</span>
-                      <span className="metric-val text-info fw-bold font-monospace">
-                        {padZero(timeLeft.hours + 2)}:{padZero(timeLeft.minutes)}:{padZero(timeLeft.seconds)}
-                      </span>
+                    <div className="podium-player-name">Player #1829</div>
+                    <div className="podium-player-score neon-green">98.40x</div>
+                    <div className="podium-pedestal pedestal-silver pedestal-red-trim">
+                      <span className="pedestal-rank-num">2</span>
+                      <div className="pedestal-shine"></div>
                     </div>
                   </div>
 
-                  <button
-                    type="button"
-                    className="btn btn-gold-action px-4 py-2 fw-bold w-100 w-sm-auto"
-                    onClick={() => handleJoin("Aviator 100x Multiplier Hunt")}
-                  >
-                    <i className="fa-solid fa-gamepad me-1"></i> PLAY QUALIFIER
-                  </button>
-                </div>
+                  {/* 1st Place (Center, Elevated) */}
+                  <div className="podium-column rank-1">
+                    <div className="podium-crown-badge crown-red">
+                      <i className="fa-solid fa-bolt"></i>
+                    </div>
+                    <div className="podium-avatar-wrap red-glow">
+                      <div className="podium-medal-badge gold">1st</div>
+                      <div className="podium-avatar-circle crimson-avatar">
+                        <i className="fa-solid fa-rocket"></i>
+                      </div>
+                    </div>
+                    <div className="podium-player-name text-light">Player #4410</div>
+                    <div className="podium-player-score neon-green-lg">142.80x</div>
+                    <div className="podium-pedestal pedestal-crimson">
+                      <span className="pedestal-rank-num">1</span>
+                      <div className="pedestal-shine"></div>
+                    </div>
+                  </div>
 
-                <div className="col-12 col-md-5">
-                  <div className="tour-leaderboard-box">
-                    <div className="lb-title d-flex justify-content-between align-items-center mb-2">
-                      <span><i className="fa-solid fa-fire text-danger me-1"></i> TOP MULTIPLIERS</span>
-                      <span className="small text-secondary">MAX X</span>
+                  {/* 3rd Place (Bronze) */}
+                  <div className="podium-column rank-3">
+                    <div className="podium-avatar-wrap bronze-glow">
+                      <div className="podium-medal-badge bronze">3rd</div>
+                      <div className="podium-avatar-circle bronze-avatar">
+                        <i className="fa-solid fa-award"></i>
+                      </div>
                     </div>
-                    <div className="lb-item rank-1">
-                      <span className="lb-rank">🏆 1st</span>
-                      <span className="lb-name">Player #4410</span>
-                      <span className="lb-score text-success fw-bold">142.80x</span>
-                    </div>
-                    <div className="lb-item rank-2">
-                      <span className="lb-rank">⭐ 2nd</span>
-                      <span className="lb-name">Player #1829</span>
-                      <span className="lb-score text-success fw-bold">98.40x</span>
-                    </div>
-                    <div className="lb-item rank-3">
-                      <span className="lb-rank">⭐ 3rd</span>
-                      <span className="lb-name">Player #9002</span>
-                      <span className="lb-score text-success fw-bold">81.15x</span>
+                    <div className="podium-player-name">Player #9002</div>
+                    <div className="podium-player-score neon-green">81.15x</div>
+                    <div className="podium-pedestal pedestal-bronze pedestal-red-trim">
+                      <span className="pedestal-rank-num">3</span>
+                      <div className="pedestal-shine"></div>
                     </div>
                   </div>
                 </div>
+              </div>
+
+              {/* Sprint Progress Gauge */}
+              <div className="cyber-progress-gauge">
+                <div className="gauge-header">
+                  <span className="gauge-label">
+                    <i className="fa-solid fa-gauge-high text-danger"></i> SPRINT COMPLETION
+                  </span>
+                  <span className="gauge-percentage">82% COMPLETE</span>
+                </div>
+                <div className="gauge-track">
+                  <div className="gauge-fill fill-red" style={{ width: "82%" }}>
+                    <div className="gauge-fill-glint"></div>
+                  </div>
+                </div>
+              </div>
+
+              {/* Action CTA */}
+              <div className="cyber-cta-wrap">
+                <button
+                  type="button"
+                  className={`cyber-action-btn btn-crimson ${joinedAviator ? "is-enrolled" : ""}`}
+                  onClick={handleJoinAviator}
+                  disabled={joinedAviator}
+                >
+                  {joinedAviator ? (
+                    <>
+                      <i className="fa-solid fa-circle-check"></i>
+                      <span>ENROLLED • RANK #7</span>
+                    </>
+                  ) : (
+                    <>
+                      <i className="fa-solid fa-plane-departure"></i>
+                      <span>PLAY QUALIFIER NOW</span>
+                    </>
+                  )}
+                </button>
               </div>
             </div>
           </div>
