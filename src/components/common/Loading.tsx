@@ -10,7 +10,7 @@ export const Loading: React.FC<LoadingProps> = ({ message = "Loading Gaming Stat
       <div
         className="spinner-border mb-3"
         role="status"
-        style={{ width: "3rem", height: "3rem", color: "#f5b300" }}
+        style={{ width: "3rem", height: "3rem", color: "#FF9431" }}
       >
         <span className="visually-hidden">Loading...</span>
       </div>

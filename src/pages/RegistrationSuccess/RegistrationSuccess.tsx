@@ -31,27 +31,18 @@ export const RegistrationSuccess: React.FC = () => {
         {/* Top Controls Bar */}
         <div
           className="d-flex flex-wrap justify-content-between align-items-center mb-4 border-bottom pb-3"
-          style={{ borderColor: "rgba(94, 23, 187, 0.4)" }}
+          style={{ borderColor: "rgba(245, 131, 31, 0.3)" }}
         >
           <div className="d-flex align-items-center gap-2">
             <Link to="/register" className="brand-logo-wrap text-decoration-none mb-0">
-              <img
-                src="/assets/images/logo.png"
-                alt="BETWISE"
-                className="brand-logo-img logo-sm"
-                style={{ height: "38px" }}
-                onError={(e) => {
-                  e.currentTarget.style.display = "none";
-                }}
-              />
               <span className="brand-name fs-5">
-                <span style={{ color: "#f5b300" }}>BET</span>
-                <span style={{ color: "#ffffff" }}>WISE</span>
+                <span style={{ color: "#ffffff" }}>1860</span>
+                <span style={{ color: "#F5831F" }}>BET</span>
               </span>
             </Link>
             <span
-              className="badge ms-2 bg-dark text-warning border border-warning-subtle"
-              style={{ fontSize: "0.75rem" }}
+              className="badge ms-2 bg-dark border"
+              style={{ fontSize: "0.75rem", color: "#FF9431", borderColor: "rgba(245, 131, 31, 0.4)" }}
             >
               REGISTRATION PORTAL
             </span>
@@ -60,8 +51,7 @@ export const RegistrationSuccess: React.FC = () => {
           <div className="d-flex align-items-center gap-3 mt-2 mt-sm-0">
             <button
               type="button"
-              className="btn btn-outline-warning btn-sm rounded-pill px-3 py-2 fw-semibold d-inline-flex align-items-center gap-2"
-              style={{ borderColor: "#f5b300", color: "#ffdc69" }}
+              className="btn-theme-orange-outline btn-sm rounded-pill px-3 py-2 fw-semibold d-inline-flex align-items-center gap-2"
               onClick={handleContinue}
             >
               <i className="fa-solid fa-gamepad"></i> Game Lobby
@@ -75,19 +65,6 @@ export const RegistrationSuccess: React.FC = () => {
             <div className="col-12 col-md-8 col-lg-5 col-xl-4">
               <div className="winbet-card active-step-card">
                 <div>
-                  {/* Brand Logo */}
-                  <div className="winbet-logo mb-3">
-                    <img
-                      src="/assets/images/logo.png"
-                      alt="BETWISE"
-                      className="brand-logo-img logo-sm"
-                      style={{ maxHeight: "48px" }}
-                      onError={(e) => {
-                        e.currentTarget.style.display = "none";
-                      }}
-                    />
-                  </div>
-
                   {/* Glowing Checkmark Circle */}
                   <div className="success-circle-container mt-2">
                     <div className="neon-success-circle">
@@ -101,7 +78,7 @@ export const RegistrationSuccess: React.FC = () => {
                   <div className="receipt-list mb-3">
                     <div className="receipt-row">
                       <span className="receipt-label">Machine Name:</span>
-                      <span className="receipt-value text-warning" id="successMachineName">
+                      <span className="receipt-value" id="successMachineName" style={{ color: "#FF9431" }}>
                         {machineName}
                       </span>
                     </div>
@@ -140,7 +117,7 @@ export const RegistrationSuccess: React.FC = () => {
                       <i className="fa-solid fa-scale-balanced"></i>
                     </div>
                     <div className="brand-text-block">
-                      <span className="brand-title">Betwise Central</span>
+                      <span className="brand-title">1860BET Central</span>
                       <span className="brand-sub">Independent. Fair. Reliable. Windhoek Central.</span>
                     </div>
                   </div>

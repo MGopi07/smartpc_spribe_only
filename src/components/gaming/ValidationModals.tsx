@@ -62,7 +62,7 @@ export const ValidationModals: React.FC<ValidationModalProps> = ({
                   justifyContent: "center",
                   color: "#ffffff",
                   fontSize: "2.2rem",
-                  animation: "pulse3DGlow 2.5s infinite alternate ease-in-out"
+                  animation: "pulseRedGlow 2.5s infinite alternate ease-in-out"
                 }}
               >
                 <i className="fa-solid fa-vault"></i>
@@ -76,7 +76,7 @@ export const ValidationModals: React.FC<ValidationModalProps> = ({
             <p className="text-light small mb-3" style={{ lineHeight: "1.5", fontSize: "0.85rem" }}>
               Shop balance is lower than the requested note or ticket amount.
               <br />
-              <strong className="text-warning" style={{ fontSize: "0.95rem", display: "inline-block", marginTop: "4px" }}>Please contact the shop cashier.</strong>
+              <strong style={{ color: "#FF9431", fontSize: "0.95rem", display: "inline-block", marginTop: "4px" }}>Please contact the shop cashier.</strong>
             </p>
 
             <div
@@ -94,7 +94,7 @@ export const ValidationModals: React.FC<ValidationModalProps> = ({
               </div>
               <div className="d-flex justify-content-between align-items-center text-secondary">
                 <span>Rule:</span>
-                <span className="text-warning fw-bold"><i className="fa-solid fa-scale-unbalanced text-danger me-1"></i> Shop Balance ≥ Required</span>
+                <span className="fw-bold" style={{ color: "#FF9431" }}><i className="fa-solid fa-scale-unbalanced text-danger me-1"></i> Shop Balance ≥ Required</span>
               </div>
             </div>
 
@@ -176,8 +176,8 @@ export const ValidationModals: React.FC<ValidationModalProps> = ({
         {alertType === "NOTE_NOT_ACCEPTED" && (
           <div>
             <div className="step-pill-box justify-content-center mb-3">
-              <span className="badge-circle bg-warning text-dark">08</span>
-              <span className="pill-text fw-bold text-warning">Bill Acceptor</span>
+              <span className="badge-circle" style={{ background: "#FF9431", color: "#ffffff" }}>08</span>
+              <span className="pill-text fw-bold" style={{ color: "#FF9431" }}>Bill Acceptor</span>
             </div>
 
             <div className="neon-alert-circle-wrap mb-3">
@@ -187,9 +187,9 @@ export const ValidationModals: React.FC<ValidationModalProps> = ({
                   width: "74px",
                   height: "74px",
                   borderRadius: "50%",
-                  background: "radial-gradient(circle at 35% 30%, #f5b300 0%, #b45309 65%, #451a03 100%)",
-                  border: "2px solid #fde68a",
-                  boxShadow: "0 0 30px rgba(245, 179, 0, 0.6), inset 0 2px 4px rgba(255, 255, 255, 0.7)",
+                  background: "radial-gradient(circle at 35% 30%, #FF9431 0%, #D96A06 65%, #5E2600 100%)",
+                  border: "2px solid #FFAE66",
+                  boxShadow: "0 0 30px rgba(245, 131, 31, 0.6), inset 0 2px 4px rgba(255, 255, 255, 0.7)",
                   display: "inline-flex",
                   alignItems: "center",
                   justifyContent: "center",
@@ -201,7 +201,7 @@ export const ValidationModals: React.FC<ValidationModalProps> = ({
               </div>
             </div>
 
-            <h3 className="success-text-heading text-warning mb-2">Cash Not Accepted</h3>
+            <h3 className="success-text-heading mb-2" style={{ color: "#FF9431" }}>Cash Not Accepted</h3>
 
             <p className="text-light small mb-3">
               The bill acceptor could not accept the note. Please smooth the bill and re-insert, try another note, or see the cashier.
@@ -210,8 +210,8 @@ export const ValidationModals: React.FC<ValidationModalProps> = ({
             <div
               className="p-2 mb-3 rounded border text-start small"
               style={{
-                background: "rgba(245, 179, 0, 0.1)",
-                borderColor: "rgba(245, 179, 0, 0.4)",
+                background: "rgba(245, 131, 31, 0.12)",
+                borderColor: "rgba(245, 131, 31, 0.5)",
                 fontSize: "0.78rem",
               }}
             >
@@ -221,7 +221,7 @@ export const ValidationModals: React.FC<ValidationModalProps> = ({
               </div>
               <div className="d-flex justify-content-between text-secondary">
                 <span>Acceptor Status:</span>
-                <span className="text-warning">Ready for retry</span>
+                <span className="fw-bold" style={{ color: "#FF9431" }}>Ready for retry</span>
               </div>
             </div>
 
@@ -380,10 +380,9 @@ export const ValidationModals: React.FC<ValidationModalProps> = ({
             SCREEN 11 (Terminal): Printer Required (Printer disconnected/offline)
             ========================================================================= */}
         {alertType === "PRINTER_REQUIRED" && (
-          <div>
-            <div className="step-pill-box justify-content-center mb-3">
-              <span className="badge-circle bg-warning text-dark">11</span>
-              <span className="pill-text fw-bold text-warning">Printer Alert</span>
+          <div>            <div className="step-pill-box justify-content-center mb-3">
+              <span className="badge-circle bg-dark text-light" style={{ border: "1px solid #FFAE66" }}>11</span>
+              <span className="pill-text fw-bold" style={{ color: "#FF9431" }}>Printer Alert</span>
             </div>
 
             <div className="neon-alert-circle-wrap mb-3">
@@ -393,9 +392,9 @@ export const ValidationModals: React.FC<ValidationModalProps> = ({
                   width: "74px",
                   height: "74px",
                   borderRadius: "50%",
-                  background: "radial-gradient(circle at 35% 30%, #f5b300 0%, #b45309 65%, #451a03 100%)",
-                  border: "2px solid #fde68a",
-                  boxShadow: "0 0 30px rgba(245, 179, 0, 0.6), inset 0 2px 4px rgba(255, 255, 255, 0.7)",
+                  background: "radial-gradient(circle at 35% 30%, #FF9431 0%, #D96A06 65%, #5E2600 100%)",
+                  border: "2.5px solid #FFAE66",
+                  boxShadow: "0 0 30px rgba(245, 131, 31, 0.7), inset 0 2px 4px rgba(255, 255, 255, 0.7)",
                   display: "inline-flex",
                   alignItems: "center",
                   justifyContent: "center",
@@ -407,7 +406,7 @@ export const ValidationModals: React.FC<ValidationModalProps> = ({
               </div>
             </div>
 
-            <h3 className="success-text-heading text-warning mb-2">Printer Required</h3>
+            <h3 className="success-text-heading mb-2" style={{ color: "#FF9431" }}>Printer Required</h3>
 
             <p className="text-light small mb-3">
               Receipt printer is not connected or out of paper. No ticket was created.
@@ -418,8 +417,8 @@ export const ValidationModals: React.FC<ValidationModalProps> = ({
             <div
               className="p-2 mb-3 rounded border text-start small"
               style={{
-                background: "rgba(245, 179, 0, 0.1)",
-                borderColor: "rgba(245, 179, 0, 0.4)",
+                background: "rgba(245, 131, 31, 0.12)",
+                borderColor: "rgba(245, 131, 31, 0.45)",
                 fontSize: "0.78rem",
               }}
             >
@@ -429,7 +428,7 @@ export const ValidationModals: React.FC<ValidationModalProps> = ({
               </div>
               <div className="d-flex justify-content-between text-secondary">
                 <span>Action:</span>
-                <span className="text-warning">Connect printer & retry</span>
+                <span style={{ color: "#FF9431" }}>Connect printer & retry</span>
               </div>
             </div>
 
@@ -456,9 +455,9 @@ export const ValidationModals: React.FC<ValidationModalProps> = ({
                   width: "82px",
                   height: "82px",
                   borderRadius: "50%",
-                  background: "radial-gradient(circle at 35% 30%, #f5b300 0%, #b45309 65%, #451a03 100%)",
-                  border: "2.5px solid #fde68a",
-                  boxShadow: "0 0 35px rgba(245, 179, 0, 0.7), inset 0 2px 5px rgba(255, 255, 255, 0.7)",
+                  background: "radial-gradient(circle at 35% 30%, #FF9431 0%, #D96A06 65%, #5E2600 100%)",
+                  border: "2.5px solid #FFAE66",
+                  boxShadow: "0 0 35px rgba(245, 131, 31, 0.75), inset 0 2px 5px rgba(255, 255, 255, 0.7)",
                   display: "inline-flex",
                   alignItems: "center",
                   justifyContent: "center",
@@ -470,22 +469,22 @@ export const ValidationModals: React.FC<ValidationModalProps> = ({
               </div>
             </div>
 
-            <h3 className="success-text-heading text-warning mb-2" style={{ textShadow: "0 0 15px rgba(245, 179, 0, 0.6)" }}>
+            <h3 className="success-text-heading mb-2" style={{ color: "#FF9431", textShadow: "0 0 15px rgba(245, 131, 31, 0.6)" }}>
               Cash Out Pending
             </h3>
 
             <div
               className="p-3 mb-3 rounded-4 border text-center position-relative overflow-hidden"
               style={{
-                background: "radial-gradient(circle at 50% 0%, #1e0d3d 0%, #0e041f 100%)",
-                borderColor: "rgba(245, 179, 0, 0.45)",
-                boxShadow: "0 8px 25px rgba(0, 0, 0, 0.6), inset 0 0 15px rgba(245, 179, 0, 0.1)",
+                background: "radial-gradient(circle at 50% 0%, #190F09 0%, #140D08 50%, #0C0805 100%)",
+                borderColor: "rgba(245, 131, 31, 0.5)",
+                boxShadow: "0 8px 25px rgba(0, 0, 0, 0.6), inset 0 0 15px rgba(245, 131, 31, 0.15)",
               }}
             >
               <div className="text-secondary small text-uppercase fw-semibold mb-1" style={{ letterSpacing: "0.5px" }}>
                 Requested Payout
               </div>
-              <div className="fs-1 fw-bold text-warning" style={{ textShadow: "0 0 20px rgba(245, 179, 0, 0.6)" }}>
+              <div className="fs-1 fw-bold" style={{ color: "#FF9431", textShadow: "0 0 20px rgba(245, 131, 31, 0.6)" }}>
                 {formatCurrency(amount)}
               </div>
              
@@ -494,7 +493,7 @@ export const ValidationModals: React.FC<ValidationModalProps> = ({
             <p className="text-light small mb-2" style={{ lineHeight: "1.5", fontSize: "0.85rem" }}>
               Waiting for cashier at the desk to approve and pay cash.
               <br />
-              <span className="text-warning-subtle fw-semibold">Please proceed to the cashier counter.</span>
+              <span className="fw-semibold" style={{ color: "#FFAE66" }}>Please proceed to the cashier counter.</span>
             </p>
           </div>
         )}
@@ -623,39 +622,39 @@ export const ValidationModals: React.FC<ValidationModalProps> = ({
             ========================================================================= */}
         {alertType === "STATION_UNBOUND" && (
           <div className="py-2">
-            {/* Glowing 3D Emerald Lock Emblem */}
+            {/* Glowing 3D Amber Lock Emblem */}
             <div className="d-flex justify-content-center mb-3">
               <div
                 style={{
                   width: "88px",
                   height: "88px",
                   borderRadius: "50%",
-                  background: "radial-gradient(circle at 35% 25%, #34d399 0%, #059669 55%, #064e3b 100%)",
-                  border: "2.5px solid #a7f3d0",
-                  boxShadow: "0 0 35px rgba(16, 185, 129, 0.8), inset 0 2px 6px rgba(255, 255, 255, 0.8), inset 0 -2px 6px rgba(0, 0, 0, 0.5)",
+                  background: "radial-gradient(circle at 35% 25%, #FF9431 0%, #D96A06 55%, #7A3300 100%)",
+                  border: "2.5px solid #FFAE66",
+                  boxShadow: "0 0 35px rgba(245, 131, 31, 0.8), inset 0 2px 6px rgba(255, 255, 255, 0.8), inset 0 -2px 6px rgba(0, 0, 0, 0.5)",
                   display: "inline-flex",
                   alignItems: "center",
                   justifyContent: "center",
                   color: "#ffffff",
                   fontSize: "2.4rem",
-                  animation: "pulse3DGlow 2.5s infinite alternate ease-in-out",
+                  animation: "pulseAmberGlow 2.5s infinite alternate ease-in-out",
                 }}
               >
                 <i className="fa-solid fa-lock" style={{ filter: "drop-shadow(0 2px 4px rgba(0, 0, 0, 0.6))" }}></i>
               </div>
             </div>
 
-            {/* Emerald Gradient Heading */}
+            {/* Amber Metallic Gradient Heading */}
             <h3
               className="mb-2"
               style={{
-                background: "linear-gradient(180deg, #ffffff 0%, #a7f3d0 45%, #34d399 100%)",
+                background: "linear-gradient(180deg, #ffffff 0%, #FFAE66 45%, #FF9431 100%)",
                 WebkitBackgroundClip: "text",
                 WebkitTextFillColor: "transparent",
                 fontSize: "1.65rem",
                 fontWeight: 800,
                 letterSpacing: "0.5px",
-                filter: "drop-shadow(0 0 14px rgba(16, 185, 129, 0.6))",
+                filter: "drop-shadow(0 0 14px rgba(245, 131, 31, 0.6))",
               }}
             >
               PC Not Authorized
@@ -683,7 +682,7 @@ export const ValidationModals: React.FC<ValidationModalProps> = ({
                   }
                 }}
               >
-                <i className="fa-solid fa-key me-1" style={{ color: "#34d399" }}></i> Register New Token
+                <i className="fa-solid fa-key me-1" style={{ color: "#FF9431" }}></i> Register New Token
               </button>
               <span className="badge bg-dark border border-secondary text-secondary font-monospace px-1 py-0" style={{ fontSize: "0.68rem" }}>
                 Ctrl+Shift+R

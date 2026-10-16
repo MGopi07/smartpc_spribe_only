@@ -29,28 +29,28 @@ export const TicketConfirmModal: React.FC<TicketConfirmModalProps> = ({
         <div
           className="inner-cashout-panel p-3 rounded mb-3"
           style={{
-            background: "radial-gradient(circle at 50% 0%, #200c40 0%, #0d031c 100%)",
-            border: "1.5px solid rgba(245, 179, 0, 0.4)",
-            boxShadow: "0 8px 25px rgba(0, 0, 0, 0.6), inset 0 0 15px rgba(245, 179, 0, 0.1)",
+            background: "radial-gradient(circle at 50% 0%, #190F09 0%, #140D08 50%, #0C0805 100%)",
+            border: "1.5px solid rgba(245, 131, 31, 0.5)",
+            boxShadow: "0 8px 25px rgba(0, 0, 0, 0.6), inset 0 0 15px rgba(245, 131, 31, 0.15)",
           }}
         >
           <div className="cashout-icon-glow mb-2">
-            <i className="fa-solid fa-receipt text-warning fs-3"></i>
+            <i className="fa-solid fa-receipt fs-3" style={{ color: "#FF9431" }}></i>
           </div>
-          <h3 className="panel-heading text-warning mb-1" style={{ textShadow: "0 0 12px rgba(245, 179, 0, 0.4)" }}>
+          <h3 className="panel-heading mb-1" style={{ color: "#FF9431", textShadow: "0 0 12px rgba(245, 131, 31, 0.5)" }}>
             Print Voucher
           </h3>
           <p className="panel-label text-secondary small text-uppercase mb-1" style={{ fontSize: "0.72rem" }}>
             Voucher Cashout Amount
           </p>
           <div className="panel-amount fs-2 fw-bold text-light">
-            <span className="currency-symbol text-warning me-1">N$</span>
+            <span className="currency-symbol me-1" style={{ color: "#FF9431" }}>N$</span>
             <span id="terminalModalAmount">{amount.toFixed(2)}</span>
           </div>
         </div>
 
         <p className="text-light small mb-3">
-          Do you want to print a cashout ticket for <strong className="text-warning">{formatCurrency(amount)}</strong>?
+          Do you want to print a cashout ticket for <strong style={{ color: "#FF9431" }}>{formatCurrency(amount)}</strong>?
         </p>
 
         {/* Button Actions: Print Ticket & Cancel */}
@@ -64,7 +64,7 @@ export const TicketConfirmModal: React.FC<TicketConfirmModalProps> = ({
         </div>
 
         <p className="text-dim small mt-3 mb-0" style={{ fontSize: "0.76rem" }}>
-          <i className="fa-solid fa-print me-1 text-warning"></i>
+          <i className="fa-solid fa-print me-1" style={{ color: "#FF9431" }}></i>
           Ticket voucher will be printed by the terminal receipt printer.
         </p>
       </div>

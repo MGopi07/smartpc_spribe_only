@@ -40,7 +40,7 @@ export const getPortalSlug = (): string => {
   return (
     localStorage.getItem("winbet_portal") ||
     import.meta.env.VITE_PORTAL_SLUG ||
-    "betwise"
+    "1860bet"
   );
 };
 
@@ -239,7 +239,7 @@ export const api = {
           loaded_amount: 0,
           player_id: Number(localStorage.getItem("winbet_player_id")) || 0,
           shop_id: Number(localStorage.getItem("winbet_shop_id")) || 0,
-          shop_name: localStorage.getItem("winbet_shop_name") || "WinBet Shop",
+          shop_name: localStorage.getItem("winbet_shop_name") || "1860BET Shop",
           pending_cash_out: null,
         };
       }
@@ -269,7 +269,7 @@ export const api = {
       loaded_amount: 0,
       player_id: Number(localStorage.getItem("winbet_player_id")) || 0,
       shop_id: Number(localStorage.getItem("winbet_shop_id")) || 0,
-      shop_name: localStorage.getItem("winbet_shop_name") || "WinBet Shop",
+      shop_name: localStorage.getItem("winbet_shop_name") || "1860BET Shop",
       pending_cash_out: fallbackPendingCashout.isPending
         ? {
             id: fallbackPendingCashout.id,
@@ -524,7 +524,7 @@ export const api = {
       shop_machine_id: Number(localStorage.getItem("winbet_numeric_id")) || 0,
       pc_name: localStorage.getItem("winbet_machine_name") || mId || "Smart PC",
       shop_id: Number(localStorage.getItem("winbet_shop_id")) || 0,
-      shop_name: localStorage.getItem("winbet_shop_name") || "WinBet Shop",
+      shop_name: localStorage.getItem("winbet_shop_name") || "1860BET Shop",
       player_id: Number(localStorage.getItem("winbet_player_id")) || 0,
       requested_amount: amt,
       approved_amount: null,

@@ -22,7 +22,7 @@ export const NotAuthorized: React.FC = () => {
   };
 
   return (
-    <div className="d-flex flex-column min-vh-100" style={{ background: "radial-gradient(circle at 50% 20%, #1c0628 0%, #080214 100%)" }}>
+    <div className="d-flex flex-column min-vh-100" style={{ background: "radial-gradient(circle at 50% 20%, #190F09 0%, #0C0805 100%)" }}>
       <div className="container-fluid px-lg-5 py-3 d-flex flex-column flex-grow-1">
         {/* Top Header */}
         <div
@@ -32,8 +32,8 @@ export const NotAuthorized: React.FC = () => {
           <div className="d-flex align-items-center gap-2">
             <Link to="/register" className="brand-logo-wrap text-decoration-none mb-0">
               <span className="brand-name fs-5">
-                <span style={{ color: "#f5b300" }}>WIN</span>
-                <span style={{ color: "#ffffff" }}>BET</span>
+                <span style={{ color: "#ffffff" }}>1860</span>
+                <span style={{ color: "#F5831F" }}>BET</span>
               </span>
             </Link>
             <span
@@ -83,7 +83,7 @@ export const NotAuthorized: React.FC = () => {
                         justifyContent: "center",
                         color: "#ffffff",
                         fontSize: "2.4rem",
-                        animation: "pulse3DGlow 2.5s infinite alternate ease-in-out"
+                        animation: "pulseRedGlow 2.5s infinite alternate ease-in-out"
                       }}
                     >
                       <i className="fa-solid fa-lock"></i>
@@ -145,7 +145,7 @@ export const NotAuthorized: React.FC = () => {
                       <i className="fa-solid fa-scale-balanced"></i>
                     </div>
                     <div className="brand-text-block">
-                      <span className="brand-title">Betwise Security</span>
+                      <span className="brand-title">1860BET Security</span>
                       <span className="brand-sub">Hardware Binding · Tauri PC Protection</span>
                     </div>
                   </div>

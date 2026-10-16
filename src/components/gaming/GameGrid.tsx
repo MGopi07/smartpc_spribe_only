@@ -246,14 +246,14 @@ interface LiveRoundItem {
   code: string;
   m1: string;
   m2: string;
-  type: "pink" | "purple" | "blue" | "cyan";
+  type: "orange" | "amber" | "cyan" | "gold" | "pink" | "purple" | "blue";
 }
 
   // Live simulated Aviator multiplier round history for sidebar (Screenshot 2 design)
   const [liveRounds, setLiveRounds] = useState<LiveRoundItem[]>([
-    { id: "680 747", code: "ESG 900100", m1: "50.25", m2: "10.25", type: "pink" },
-    { id: "712 403", code: "ESG 900100", m1: "40.25", m2: "75.25", type: "purple" },
-    { id: "594 118", code: "ESG 900100", m1: "9.25", m2: "6.25", type: "blue" },
+    { id: "680 747", code: "ESG 900100", m1: "50.25", m2: "10.25", type: "orange" },
+    { id: "712 403", code: "ESG 900100", m1: "40.25", m2: "75.25", type: "amber" },
+    { id: "594 118", code: "ESG 900100", m1: "9.25", m2: "6.25", type: "cyan" },
   ]);
 
   useEffect(() => {
@@ -265,7 +265,7 @@ interface LiveRoundItem {
       const m1 = (1.1 + Math.random() * 30).toFixed(2);
       const m2 = (1.2 + Math.random() * 50).toFixed(2);
 
-      const types = ["pink", "purple", "blue", "cyan"] as const;
+      const types = ["orange", "amber", "cyan", "gold"] as const;
       const type = types[Math.floor(Math.random() * types.length)];
 
       setLiveRounds((prev) => [
@@ -343,7 +343,7 @@ interface LiveRoundItem {
                 </div>
 
                 <h2 className="spribe-sidebar-title">
-                  SPRIBE <span className="text-warning">TURBO</span>
+                  SPRIBE <span style={{ color: "#FF9431" }}>TURBO</span>
                 </h2>
                 <p className="spribe-sidebar-desc">
                   High-speed crash, instant multipliers &amp; Provably Fair arcade games with instant cashier cashout.
@@ -444,12 +444,12 @@ interface LiveRoundItem {
                       className="p-4 rounded-4 text-center d-flex flex-column align-items-center justify-content-center"
                       style={{
                         height: "165px",
-                        background: "rgba(13, 5, 29, 0.7)",
-                        border: "1px solid rgba(147, 51, 234, 0.25)",
+                        background: "rgba(20, 13, 8, 0.8)",
+                        border: "1px solid rgba(245, 131, 31, 0.25)",
                         animation: "pulse 1.5s infinite ease-in-out",
                       }}
                     >
-                      <div className="spinner-border text-warning spinner-border-sm mb-2" role="status"></div>
+                      <div className="spinner-border spinner-border-sm mb-2" style={{ color: "#FF9431" }} role="status"></div>
                       <span className="text-secondary small fw-bold">Loading...</span>
                     </div>
                   ))}
@@ -467,11 +467,14 @@ interface LiveRoundItem {
 
         {/* View More Games Pagination Loader Section */}
         {!isLoading && filteredGames.length > 0 && hasMore && (
-          <div className="d-flex flex-column flex-md-row align-items-center justify-content-between mt-4 pt-3 pb-2 border-top border-purple-subtle gap-3 px-2">
+          <div
+            className="d-flex flex-column flex-md-row align-items-center justify-content-between mt-4 pt-3 pb-2 border-top gap-3 px-2"
+            style={{ borderColor: "rgba(245, 131, 31, 0.25)" }}
+          >
             {/* Left Side: Game Count & Progress Bar */}
             <div className="d-flex align-items-center gap-3">
               <div className="text-secondary small">
-                Showing <strong className="text-warning">{catalogGames.length}</strong> of{" "}
+                Showing <strong style={{ color: "#FF9431" }}>{catalogGames.length}</strong> of{" "}
                 <strong className="text-light">{totalGames}</strong> Live Games
               </div>
               <div
@@ -484,14 +487,18 @@ interface LiveRoundItem {
                 }}
               >
                 <div
-                  className="progress-bar bg-warning"
+                  className="progress-bar"
                   style={{
                     width: `${Math.min(100, Math.round((catalogGames.length / (totalGames || 1)) * 100))}%`,
                     borderRadius: "10px",
+                    background: "linear-gradient(90deg, #FF9431 0%, #F5831F 100%)",
                   }}
                 ></div>
               </div>
-              <span className="badge bg-dark text-warning border border-warning border-opacity-25 rounded-pill px-2 py-1 small">
+              <span
+                className="badge bg-dark rounded-pill px-2 py-1 small"
+                style={{ color: "#FF9431", border: "1px solid rgba(245, 131, 31, 0.4)" }}
+              >
                 {Math.min(100, Math.round((catalogGames.length / (totalGames || 1)) * 100))}%
               </span>
             </div>
@@ -501,7 +508,7 @@ interface LiveRoundItem {
               <button
                 id="viewMoreGamesBtn"
                 type="button"
-                className="btn btn-warning text-dark fw-bold rounded-pill px-4 py-2 d-inline-flex align-items-center gap-2 shadow-sm transition-all"
+                className="btn-theme-orange-solid rounded-pill px-4 py-2 d-inline-flex align-items-center gap-2 shadow-sm transition-all"
                 onClick={handleLoadMore}
                 disabled={isLoadingMore}
               >
@@ -524,7 +531,7 @@ interface LiveRoundItem {
         {/* Empty State */}
         {!isLoading && filteredGames.length === 0 && (
           <div id="noGamesFoundState" className="text-center py-5">
-            <div className="mb-3" style={{ fontSize: "3rem", color: "#a855f7" }}>
+            <div className="mb-3" style={{ fontSize: "3rem", color: "#F5831F" }}>
               <i className="fa-solid fa-gamepad"></i>
             </div>
             <h3 className="fw-bold text-light mb-2">No Live Games Found</h3>
@@ -535,7 +542,7 @@ interface LiveRoundItem {
             </p>
             {searchQuery && (
               <button
-                className="btn btn-outline-warning rounded-pill px-4 py-2"
+                className="btn-theme-orange-outline rounded-pill px-4 py-2"
                 onClick={() => setSearchQuery("")}
               >
                 Clear Search

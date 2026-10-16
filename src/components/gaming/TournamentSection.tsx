@@ -115,7 +115,7 @@ export const TournamentSection: React.FC<TournamentSectionProps> = ({ onJoinTour
               <div className="cyber-podium-stage">
                 <div className="podium-stage-header">
                   <div className="stage-title">
-                    <i className="fa-solid fa-ranking-star text-warning"></i>
+                    <i className="fa-solid fa-ranking-star" style={{ color: "#FF9431" }}></i>
                     <span>TOP 3 CHAMPIONS</span>
                   </div>
                   <div className="stage-live-count">
@@ -182,7 +182,7 @@ export const TournamentSection: React.FC<TournamentSectionProps> = ({ onJoinTour
               <div className="cyber-progress-gauge">
                 <div className="gauge-header">
                   <span className="gauge-label">
-                    <i className="fa-solid fa-gauge-high text-warning"></i> SPRINT COMPLETION
+                    <i className="fa-solid fa-gauge-high" style={{ color: "#FF9431" }}></i> SPRINT COMPLETION
                   </span>
                   <span className="gauge-percentage">74% COMPLETE</span>
                 </div>

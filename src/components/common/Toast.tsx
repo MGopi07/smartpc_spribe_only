@@ -25,9 +25,10 @@ export const Toast: React.FC<ToastProps> = ({
   if (!isOpen || !message) return null;
 
   const lower = message.toLowerCase();
-  let icon = "fa-solid fa-bell text-info";
-  let borderColor = "rgba(168, 85, 247, 0.6)";
-  let glowColor = "rgba(168, 85, 247, 0.35)";
+  let icon = "fa-solid fa-bell";
+  let iconColor = "#FF9431";
+  let borderColor = "rgba(245, 131, 31, 0.6)";
+  let glowColor = "rgba(245, 131, 31, 0.35)";
 
   if (
     lower.includes("approved") ||
@@ -38,6 +39,7 @@ export const Toast: React.FC<ToastProps> = ({
     lower.includes("+n$")
   ) {
     icon = "fa-solid fa-circle-check text-success";
+    iconColor = "";
     borderColor = "rgba(34, 197, 94, 0.6)";
     glowColor = "rgba(34, 197, 94, 0.35)";
   } else if (
@@ -46,9 +48,10 @@ export const Toast: React.FC<ToastProps> = ({
     lower.includes("warning") ||
     lower.includes("low")
   ) {
-    icon = "fa-solid fa-triangle-exclamation text-warning";
-    borderColor = "rgba(245, 179, 0, 0.6)";
-    glowColor = "rgba(245, 179, 0, 0.35)";
+    icon = "fa-solid fa-triangle-exclamation";
+    iconColor = "#FF9431";
+    borderColor = "rgba(245, 131, 31, 0.6)";
+    glowColor = "rgba(245, 131, 31, 0.35)";
   } else if (
     lower.includes("rejected") ||
     lower.includes("declined") ||
@@ -56,6 +59,7 @@ export const Toast: React.FC<ToastProps> = ({
     lower.includes("error")
   ) {
     icon = "fa-solid fa-circle-xmark text-danger";
+    iconColor = "";
     borderColor = "rgba(239, 68, 68, 0.6)";
     glowColor = "rgba(239, 68, 68, 0.35)";
   }
@@ -67,7 +71,7 @@ export const Toast: React.FC<ToastProps> = ({
         bottom: "30px",
         right: "30px",
         zIndex: 99999,
-        background: "linear-gradient(135deg, #180838 0%, #0d021f 100%)",
+        background: "linear-gradient(135deg, #190F09 0%, #0C0805 100%)",
         border: `1.5px solid ${borderColor}`,
         boxShadow: `0 8px 30px rgba(0, 0, 0, 0.7), 0 0 20px ${glowColor}`,
         borderRadius: "14px",
@@ -82,7 +86,7 @@ export const Toast: React.FC<ToastProps> = ({
       }}
     >
       <div style={{ fontSize: "1.35rem", display: "flex", alignItems: "center" }}>
-        <i className={icon}></i>
+        <i className={icon} style={iconColor ? { color: iconColor } : undefined}></i>
       </div>
       <div style={{ flex: 1, fontSize: "0.9rem", fontWeight: 600, lineHeight: 1.4 }}>
         {message}

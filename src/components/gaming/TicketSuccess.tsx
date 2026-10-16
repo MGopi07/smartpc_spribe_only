@@ -51,35 +51,35 @@ export const TicketSuccess: React.FC<TicketSuccessProps> = ({
         <div
           className="printed-ticket-voucher p-3 rounded mb-3 text-start position-relative overflow-hidden"
           style={{
-            background: "radial-gradient(circle at 50% 0%, #1c0b38 0%, #0c031c 100%)",
-            border: "1.5px solid rgba(245, 179, 0, 0.4)",
-            boxShadow: "0 8px 30px rgba(0, 0, 0, 0.7), inset 0 0 15px rgba(245, 179, 0, 0.1)",
+            background: "radial-gradient(circle at 50% 0%, #190F09 0%, #0C0805 100%)",
+            border: "1.5px solid rgba(245, 131, 31, 0.5)",
+            boxShadow: "0 8px 30px rgba(0, 0, 0, 0.7), inset 0 0 15px rgba(245, 131, 31, 0.15)",
           }}
         >
           {/* Header of Voucher */}
           <div className="d-flex justify-content-between align-items-center pb-2 mb-2 border-bottom border-secondary border-opacity-25">
             <div className="d-flex align-items-center gap-1">
-              <span className="fw-bold" style={{ color: "#f5b300", letterSpacing: "1px" }}>
-                WIN
+              <span className="fw-bold" style={{ color: "#ffffff", letterSpacing: "1px" }}>
+                1860
               </span>
-              <span className="fw-bold text-white" style={{ letterSpacing: "1px" }}>
+              <span className="fw-bold" style={{ color: "#F5831F", letterSpacing: "1px" }}>
                 BET
               </span>
-              <span className="badge ms-1 bg-dark text-warning border border-warning-subtle" style={{ fontSize: "0.62rem" }}>
+              <span className="badge ms-1 bg-dark text-white border" style={{ fontSize: "0.62rem", borderColor: "rgba(245, 131, 31, 0.5)", color: "#FF9431" }}>
                 CASHOUT VOUCHER
               </span>
             </div>
-            <span className="text-secondary small" style={{ fontSize: "0.7rem" }}>
+            <span className="text-secondary small" style={{ fontSize: "0.7rem", color: "#FDF3E3" }}>
               {shop.name}
             </span>
           </div>
 
           {/* Amount Display */}
-          <div className="text-center py-2 mb-2 rounded" style={{ background: "rgba(0, 0, 0, 0.4)", border: "1px solid rgba(245, 179, 0, 0.2)" }}>
+          <div className="text-center py-2 mb-2 rounded" style={{ background: "rgba(0, 0, 0, 0.5)", border: "1px solid rgba(245, 131, 31, 0.3)" }}>
             <div className="text-secondary text-uppercase fw-semibold" style={{ fontSize: "0.7rem", letterSpacing: "0.5px" }}>
               Payout Amount
             </div>
-            <div className="fs-2 fw-bold text-warning" id="dispTicketAmount" style={{ textShadow: "0 0 12px rgba(245, 179, 0, 0.4)" }}>
+            <div className="fs-2 fw-bold" id="dispTicketAmount" style={{ color: "#FF9431", textShadow: "0 0 14px rgba(245, 131, 31, 0.5)" }}>
               {formatCurrency(amount)}
             </div>
           </div>
@@ -158,7 +158,7 @@ export const TicketSuccess: React.FC<TicketSuccessProps> = ({
 
         {/* Cashier Instruction Notice */}
         <p className="cashier-notice-text text-light small mb-3" style={{ fontSize: "0.8rem", lineHeight: "1.4" }}>
-          <i className="fa-solid fa-circle-info text-warning me-1"></i>
+          <i className="fa-solid fa-circle-info me-1" style={{ color: "#FF9431" }}></i>
           <strong>Take this ticket to the cashier</strong> to redeem cash, or scan it on any Terminal in this shop.
         </p>
 
@@ -173,7 +173,7 @@ export const TicketSuccess: React.FC<TicketSuccessProps> = ({
         >
           <div className="d-flex justify-content-between text-secondary">
             <span>Terminal Credits:</span>
-            <span className="text-warning fw-bold">Reset to N$ 0.00</span>
+            <span className="fw-bold" style={{ color: "#FF9431" }}>Reset to N$ 0.00</span>
           </div>
           <div className="d-flex justify-content-between text-secondary">
             <span>Next Action:</span>
@@ -193,7 +193,7 @@ export const TicketSuccess: React.FC<TicketSuccessProps> = ({
             <i className="fa-solid fa-scale-balanced"></i>
           </div>
           <div className="brand-text-block text-start">
-            <span className="brand-title">Betwise Central</span>
+            <span className="brand-title">1860BET Central</span>
             <span className="brand-sub">Independent. Fair. Reliable. Windhoek Central.</span>
           </div>
         </div>

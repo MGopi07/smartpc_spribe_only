@@ -12,7 +12,7 @@ export const Registration: React.FC<RegistrationProps> = ({
   defaultMachineType = "smart-pc",
 }) => {
   const navigate = useNavigate();
-  const [portal, setPortal] = useState(() => localStorage.getItem("winbet_portal") || api.getPortalSlug() || "betwise");
+  const [portal, setPortal] = useState(() => localStorage.getItem("winbet_portal") || api.getPortalSlug() || "1860bet");
   const [registrationToken, setRegistrationToken] = useState("");
   const [machineType] = useState<MachineType>(defaultMachineType);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
@@ -92,7 +92,7 @@ export const Registration: React.FC<RegistrationProps> = ({
   };
 
   return (
-    <div className="d-flex flex-column min-vh-100" style={{ background: "radial-gradient(circle at 50% 15%, #1d0938 0%, #080214 100%)" }}>
+    <div className="d-flex flex-column min-vh-100" style={{ background: "radial-gradient(circle at 50% 15%, #190F09 0%, #0C0805 100%)" }}>
       <div className="container-fluid px-lg-5 py-3 d-flex flex-column flex-grow-1">
         {/* Center Content Wrapper */}
         <div className="my-auto w-100 py-2">
@@ -130,7 +130,7 @@ export const Registration: React.FC<RegistrationProps> = ({
                             setPortal(e.target.value);
                             setErrorMessage(null);
                           }}
-                          placeholder="betwise"
+                          placeholder="1860bet"
                         />
                       </div>
 
@@ -170,24 +170,10 @@ export const Registration: React.FC<RegistrationProps> = ({
                       )}
 
                       {/* Buttons */}
-                      <div className="d-flex justify-content-between align-items-center gap-2 mt-4" id="btnGroupScreen1">
-                        <button
-                          type="button"
-                          className="btn btn-secondary fw-semibold"
-                          style={{
-                            borderRadius: "8px",
-                            background: "rgba(255,255,255,0.1)",
-                            color: "#fff",
-                            border: "1px solid rgba(255,255,255,0.2)",
-                            padding: "0.5rem 1.2rem",
-                          }}
-                          onClick={() => navigate(-1)}
-                        >
-                          Close
-                        </button>
+                      <div className="mt-4" id="btnGroupScreen1">
                         <button
                           type="submit"
-                          className="btn-winbet flex-grow-1"
+                          className="btn-winbet"
                           style={{ padding: "0.5rem 1.2rem" }}
                           disabled={isLoading}
                         >
@@ -222,7 +208,7 @@ export const Registration: React.FC<RegistrationProps> = ({
                       <div className="receipt-list mb-3">
                         <div className="receipt-row">
                           <span className="receipt-label">Machine Name:</span>
-                          <span className="receipt-value text-warning fw-bold" id="successPcName">
+                          <span className="receipt-value fw-bold" id="successPcName" style={{ color: "#FF9431" }}>
                             {registeredData?.pc_name || registeredData?.terminal_name || registeredData?.machine_id}
                           </span>
                         </div>
@@ -234,7 +220,7 @@ export const Registration: React.FC<RegistrationProps> = ({
                         </div>
                         <div className="receipt-row">
                           <span className="receipt-label">Shop Name:</span>
-                          <span className="receipt-value text-warning-subtle fw-semibold">{registeredData?.shop_name}</span>
+                          <span className="receipt-value fw-semibold" style={{ color: "#FDF3E3" }}>{registeredData?.shop_name}</span>
                         </div>
                         <div className="receipt-row">
                           <span className="receipt-label">Portal:</span>

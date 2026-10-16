@@ -24,8 +24,8 @@ export const HardwareSimulatorBar: React.FC<HardwareSimulatorBarProps> = ({
     <div
       className="hardware-simulator-bar position-sticky bottom-0 start-0 end-0 z-3 p-2 text-light"
       style={{
-        background: "rgba(13, 5, 29, 0.95)",
-        borderTop: "1.5px solid rgba(168, 85, 247, 0.35)",
+        background: "rgba(12, 8, 5, 0.96)",
+        borderTop: "1.5px solid rgba(245, 131, 31, 0.35)",
         backdropFilter: "blur(12px)",
         boxShadow: "0 -8px 25px rgba(0, 0, 0, 0.6)",
       }}
@@ -35,10 +35,10 @@ export const HardwareSimulatorBar: React.FC<HardwareSimulatorBarProps> = ({
         <div className="d-flex flex-wrap justify-content-between align-items-center gap-2">
           <div className="d-flex align-items-center gap-2">
             <span
-              className="badge d-inline-flex align-items-center gap-1 bg-dark text-warning border border-warning-subtle px-2 py-1"
-              style={{ fontSize: "0.74rem" }}
+              className="badge d-inline-flex align-items-center gap-1 bg-dark border px-2 py-1"
+              style={{ fontSize: "0.74rem", color: "#FF9431", borderColor: "rgba(245, 131, 31, 0.4)" }}
             >
-              <i className="fa-solid fa-microchip text-warning"></i>
+              <i className="fa-solid fa-microchip" style={{ color: "#FF9431" }}></i>
               <span>HARDWARE & VALIDATION LAB (PURE WEB / NO TAURI)</span>
             </span>
 
@@ -50,7 +50,7 @@ export const HardwareSimulatorBar: React.FC<HardwareSimulatorBarProps> = ({
           <div className="d-flex align-items-center gap-2">
             <button
               type="button"
-              className="btn btn-sm btn-outline-warning rounded-pill px-3 py-1 fw-semibold d-inline-flex align-items-center gap-1"
+              className="btn-theme-orange-outline btn-sm rounded-pill px-3 py-1 fw-semibold d-inline-flex align-items-center gap-1"
               style={{ fontSize: "0.75rem" }}
               onClick={() => setIsExpanded((prev) => !prev)}
             >
@@ -62,7 +62,7 @@ export const HardwareSimulatorBar: React.FC<HardwareSimulatorBarProps> = ({
 
         {/* Expandable Controls Drawer */}
         {isExpanded && (
-          <div className="pt-3 mt-2 border-top border-purple-900 animate__animated animate__fadeIn">
+          <div className="pt-3 mt-2 border-top animate__animated animate__fadeIn" style={{ borderColor: "rgba(245, 131, 31, 0.25)" }}>
             <div className="row g-2">
               {/* ==============================================================
                   TERMINAL HARDWARE CONTROLS
@@ -73,10 +73,10 @@ export const HardwareSimulatorBar: React.FC<HardwareSimulatorBarProps> = ({
                   <div className="col-12 col-md-4">
                     <div
                       className="p-2 rounded h-100 border"
-                      style={{ background: "rgba(22, 10, 48, 0.6)", borderColor: "rgba(147, 51, 234, 0.3)" }}
+                      style={{ background: "rgba(20, 13, 8, 0.75)", borderColor: "rgba(245, 131, 31, 0.3)" }}
                     >
                       <div className="d-flex align-items-center justify-content-between mb-2">
-                        <span className="fw-bold text-warning small d-flex align-items-center gap-1">
+                        <span className="fw-bold small d-flex align-items-center gap-1" style={{ color: "#FF9431" }}>
                           <i className="fa-solid fa-money-bill-wave text-success"></i> Bill Acceptor (Cash-In)
                         </span>
                         <span className="badge bg-success text-dark" style={{ fontSize: "0.65rem" }}>
@@ -112,7 +112,7 @@ export const HardwareSimulatorBar: React.FC<HardwareSimulatorBarProps> = ({
                       <div className="d-flex flex-wrap gap-1">
                         <button
                           type="button"
-                          className="btn btn-xs btn-outline-warning py-1 px-2"
+                          className="btn btn-xs btn-theme-orange-outline py-1 px-2"
                           style={{ fontSize: "0.72rem" }}
                           onClick={() => onTriggerAlert("NOTE_NOT_ACCEPTED")}
                           title="Screen 08: Cash Not Accepted"
@@ -136,7 +136,7 @@ export const HardwareSimulatorBar: React.FC<HardwareSimulatorBarProps> = ({
                   <div className="col-12 col-md-4">
                     <div
                       className="p-2 rounded h-100 border"
-                      style={{ background: "rgba(22, 10, 48, 0.6)", borderColor: "rgba(147, 51, 234, 0.3)" }}
+                      style={{ background: "rgba(20, 13, 8, 0.75)", borderColor: "rgba(245, 131, 31, 0.3)" }}
                     >
                       <div className="d-flex align-items-center justify-content-between mb-2">
                         <span className="fw-bold text-info small d-flex align-items-center gap-1">
@@ -159,7 +159,7 @@ export const HardwareSimulatorBar: React.FC<HardwareSimulatorBarProps> = ({
                       <div className="d-flex flex-wrap gap-1">
                         <button
                           type="button"
-                          className="btn btn-xs btn-outline-warning py-1 px-2"
+                          className="btn btn-xs btn-theme-orange-outline py-1 px-2"
                           style={{ fontSize: "0.72rem" }}
                           onClick={() => onTriggerAlert("SCAN_AGAIN")}
                           title="Screen 09: Barcode scanner waking up / partial read"
@@ -183,13 +183,13 @@ export const HardwareSimulatorBar: React.FC<HardwareSimulatorBarProps> = ({
                   <div className="col-12 col-md-4">
                     <div
                       className="p-2 rounded h-100 border"
-                      style={{ background: "rgba(22, 10, 48, 0.6)", borderColor: "rgba(147, 51, 234, 0.3)" }}
+                      style={{ background: "rgba(20, 13, 8, 0.75)", borderColor: "rgba(245, 131, 31, 0.3)" }}
                     >
                       <div className="d-flex align-items-center justify-content-between mb-2">
-                        <span className="fw-bold text-warning small d-flex align-items-center gap-1">
-                          <i className="fa-solid fa-print text-warning"></i> Epson Printer (Cash-Out)
+                        <span className="fw-bold small d-flex align-items-center gap-1" style={{ color: "#FF9431" }}>
+                          <i className="fa-solid fa-print" style={{ color: "#FF9431" }}></i> Epson Printer (Cash-Out)
                         </span>
-                        <span className="badge bg-warning text-dark" style={{ fontSize: "0.65rem" }}>
+                        <span className="badge" style={{ fontSize: "0.65rem", background: "#FF9431", color: "#ffffff" }}>
                           USB Esc/POS
                         </span>
                       </div>
@@ -206,7 +206,7 @@ export const HardwareSimulatorBar: React.FC<HardwareSimulatorBarProps> = ({
                       <div className="d-flex flex-wrap gap-1">
                         <button
                           type="button"
-                          className="btn btn-xs btn-outline-warning py-1 px-2"
+                          className="btn btn-xs btn-theme-orange-outline py-1 px-2"
                           style={{ fontSize: "0.72rem" }}
                           onClick={() => onTriggerAlert("PRINTER_REQUIRED", balance)}
                           title="Screen 11: Printer required / disconnected before cashout"
@@ -237,13 +237,13 @@ export const HardwareSimulatorBar: React.FC<HardwareSimulatorBarProps> = ({
                   <div className="col-12 col-md-6">
                     <div
                       className="p-2 rounded h-100 border"
-                      style={{ background: "rgba(22, 10, 48, 0.6)", borderColor: "rgba(147, 51, 234, 0.3)" }}
+                      style={{ background: "rgba(20, 13, 8, 0.75)", borderColor: "rgba(245, 131, 31, 0.3)" }}
                     >
                       <div className="d-flex align-items-center justify-content-between mb-2">
                         <span className="fw-bold text-success small d-flex align-items-center gap-1">
-                          <i className="fa-solid fa-coins text-warning"></i> Cashier Desk (Load Coins)
+                          <i className="fa-solid fa-coins" style={{ color: "#FF9431" }}></i> Cashier Desk (Load Coins)
                         </span>
-                        <span className="badge bg-dark text-warning border border-warning" style={{ fontSize: "0.65rem" }}>
+                        <span className="badge bg-dark border" style={{ fontSize: "0.65rem", color: "#FF9431", borderColor: "rgba(245, 131, 31, 0.4)" }}>
                           Back Office Cash-In
                         </span>
                       </div>
@@ -284,13 +284,13 @@ export const HardwareSimulatorBar: React.FC<HardwareSimulatorBarProps> = ({
                   <div className="col-12 col-md-6">
                     <div
                       className="p-2 rounded h-100 border"
-                      style={{ background: "rgba(22, 10, 48, 0.6)", borderColor: "rgba(147, 51, 234, 0.3)" }}
+                      style={{ background: "rgba(20, 13, 8, 0.75)", borderColor: "rgba(245, 131, 31, 0.3)" }}
                     >
                       <div className="d-flex align-items-center justify-content-between mb-2">
-                        <span className="fw-bold text-warning small d-flex align-items-center gap-1">
-                          <i className="fa-solid fa-hand-holding-dollar text-warning"></i> Cash Out Workflow
+                        <span className="fw-bold small d-flex align-items-center gap-1" style={{ color: "#FF9431" }}>
+                          <i className="fa-solid fa-hand-holding-dollar" style={{ color: "#FF9431" }}></i> Cash Out Workflow
                         </span>
-                        <span className="badge bg-warning text-dark" style={{ fontSize: "0.65rem" }}>
+                        <span className="badge" style={{ fontSize: "0.65rem", background: "#FF9431", color: "#ffffff" }}>
                           Desk Queue
                         </span>
                       </div>
@@ -322,9 +322,12 @@ export const HardwareSimulatorBar: React.FC<HardwareSimulatorBarProps> = ({
               )}
 
               {/* System Security / Unbind Test Row */}
-              <div className="col-12 pt-2 border-top border-purple-900 d-flex flex-wrap justify-content-between align-items-center gap-2">
+              <div
+                className="col-12 pt-2 border-top d-flex flex-wrap justify-content-between align-items-center gap-2"
+                style={{ borderColor: "rgba(245, 131, 31, 0.25)" }}
+              >
                 <div className="text-secondary small" style={{ fontSize: "0.76rem" }}>
-                  <i className="fa-solid fa-fingerprint me-1 text-warning"></i>
+                  <i className="fa-solid fa-fingerprint me-1" style={{ color: "#FF9431" }}></i>
                   <strong>Hardware Fingerprint & Unbind Flow:</strong> Test what happens when PC is unbound or unauthorized
                 </div>
                 <div className="d-flex gap-2">

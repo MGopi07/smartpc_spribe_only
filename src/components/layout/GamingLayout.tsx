@@ -97,7 +97,15 @@ export const GamingLayout: React.FC<GamingLayoutProps> = ({
           {/* Right: Dock Action Button & Admin Unlock Indicator */}
           <div className="d-flex align-items-center gap-2">
             {isOverrideUnlocked && (
-              <span className="badge bg-warning text-dark border border-warning px-3 py-2 fw-bold d-inline-flex align-items-center gap-1 shadow-sm">
+              <span
+                className="badge px-3 py-2 fw-bold d-inline-flex align-items-center gap-1 shadow-sm"
+                style={{
+                  background: "linear-gradient(135deg, #FF9431 0%, #F5831F 100%)",
+                  color: "#ffffff",
+                  border: "1px solid #FFAE66",
+                  textShadow: "0 1px 2px rgba(0, 0, 0, 0.5)",
+                }}
+              >
                 <i className="fa-solid fa-lock-open"></i> KEYBOARD UNLOCKED (CTRL+SHIFT+D)
               </span>
             )}

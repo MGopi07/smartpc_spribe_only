@@ -7,11 +7,11 @@ interface ProvidersBarProps {
 
 const PROVIDERS = [
   { id: "all", name: "All Studios", icon: "fa-solid fa-layer-group", count: "40+ Games" },
-  { id: "spribe", name: "SPRIBE", icon: "fa-solid fa-gamepad text-danger", count: "13 Games", isPopular: true },
-  { id: "pragmatic", name: "Pragmatic Play", icon: "fa-solid fa-crown text-warning", count: "15 Games" },
-  { id: "evolution", name: "Evolution Live", icon: "fa-solid fa-video text-info", count: "8 Tables" },
-  { id: "netent", name: "NetEnt Classics", icon: "fa-solid fa-gem text-success", count: "12 Slots" },
-  { id: "betwise", name: "Betwise Originals", icon: "fa-solid fa-shield-cat text-warning", count: "Exclusive", isPopular: true },
+  { id: "spribe", name: "SPRIBE", icon: "fa-solid fa-gamepad", iconColor: "#ef4444", count: "13 Games", isPopular: true },
+  { id: "pragmatic", name: "Pragmatic Play", icon: "fa-solid fa-crown", iconColor: "#FF9431", count: "15 Games" },
+  { id: "evolution", name: "Evolution Live", icon: "fa-solid fa-video", iconColor: "#38bdf8", count: "8 Tables" },
+  { id: "netent", name: "NetEnt Classics", icon: "fa-solid fa-gem", iconColor: "#22c55e", count: "12 Slots" },
+  { id: "1860bet", name: "1860BET Originals", icon: "fa-solid fa-shield-cat", iconColor: "#FF9431", count: "Exclusive", isPopular: true },
 ];
 
 export const ProvidersBar: React.FC<ProvidersBarProps> = ({
@@ -22,7 +22,7 @@ export const ProvidersBar: React.FC<ProvidersBarProps> = ({
     <section className="providers-showcase-section mb-5">
       <div className="section-header-bar">
         <h2 className="section-header-title">
-          <i className="fa-solid fa-microchip text-info"></i> Official Gaming Studios & Providers
+          <i className="fa-solid fa-microchip" style={{ color: "#FF9431" }}></i> Official Gaming Studios & Providers
         </h2>
         <span className="badge bg-dark border border-secondary text-secondary small px-3 py-1 rounded-pill">
           CERTIFIED LICENSED SOFTWARE
@@ -40,10 +40,17 @@ export const ProvidersBar: React.FC<ProvidersBarProps> = ({
                 onClick={() => onSelectProvider?.(prov.id)}
               >
                 <div className="d-flex align-items-center gap-2 mb-1">
-                  <i className={`${prov.icon} fs-5`}></i>
+                  <i className={`${prov.icon} fs-5`} style={prov.iconColor ? { color: prov.iconColor } : undefined}></i>
                   <span className="provider-name">{prov.name}</span>
                   {prov.isPopular && (
-                    <span className="badge bg-warning text-dark px-1 py-0 fw-bold" style={{ fontSize: "0.55rem" }}>
+                    <span
+                      className="badge px-1 py-0 fw-bold text-white"
+                      style={{
+                        fontSize: "0.55rem",
+                        background: "linear-gradient(135deg, #FF9431 0%, #F5831F 100%)",
+                        border: "1px solid #FFAE66",
+                      }}
+                    >
                       TOP
                     </span>
                   )}

@@ -31,8 +31,8 @@ export const getSpribeGameConfig = (gameName: string): SpribeGameConfig => {
     return {
       displayName: "DICE",
       gradient: "radial-gradient(circle at 50% 35%, #78350f 0%, #261102 100%)",
-      borderColor: "rgba(245, 179, 0, 0.45)",
-      glowColor: "rgba(245, 179, 0, 0.45)",
+      borderColor: "rgba(245, 131, 31, 0.5)",
+      glowColor: "rgba(245, 131, 31, 0.5)",
       image: "/assets/games/SPRIBE/DICE.png",
     };
   }
@@ -84,27 +84,27 @@ export const getSpribeGameConfig = (gameName: string): SpribeGameConfig => {
   if (n.includes("hilo") || n.includes("hi-lo")) {
     return {
       displayName: "Hilo",
-      gradient: "radial-gradient(circle at 50% 35%, #701a75 0%, #260628 100%)",
-      borderColor: "rgba(217, 70, 239, 0.45)",
-      glowColor: "rgba(217, 70, 239, 0.45)",
+      gradient: "radial-gradient(circle at 50% 35%, #5E2600 0%, #190F09 100%)",
+      borderColor: "rgba(245, 131, 31, 0.45)",
+      glowColor: "rgba(245, 131, 31, 0.45)",
       image: "/assets/games/SPRIBE/HILO.png",
     };
   }
   if (n.includes("80") || n.includes("multi") || n.includes("keno80") || n.includes("kino80")) {
     return {
       displayName: "Keno 80",
-      gradient: "radial-gradient(circle at 50% 35%, #4c1d95 0%, #170933 100%)",
-      borderColor: "rgba(192, 132, 252, 0.45)",
-      glowColor: "rgba(192, 132, 252, 0.45)",
+      gradient: "radial-gradient(circle at 50% 35%, #7A3300 0%, #140D08 100%)",
+      borderColor: "rgba(255, 148, 49, 0.45)",
+      glowColor: "rgba(255, 148, 49, 0.45)",
       image: "/assets/games/SPRIBE/KENO80.png",
     };
   }
   if (n.includes("keno") || n.includes("kino")) {
     return {
       displayName: "Keno",
-      gradient: "radial-gradient(circle at 50% 35%, #581c87 0%, #1e0733 100%)",
-      borderColor: "rgba(168, 85, 247, 0.45)",
-      glowColor: "rgba(168, 85, 247, 0.45)",
+      gradient: "radial-gradient(circle at 50% 35%, #D96A06 0%, #0C0805 100%)",
+      borderColor: "rgba(255, 174, 102, 0.45)",
+      glowColor: "rgba(255, 174, 102, 0.45)",
       image: "/assets/games/SPRIBE/KENO.png",
     };
   }
@@ -138,9 +138,9 @@ export const getSpribeGameConfig = (gameName: string): SpribeGameConfig => {
 
   return {
     displayName: gameName.toUpperCase(),
-    gradient: "radial-gradient(circle at 50% 35%, #3b0764 0%, #120224 100%)",
-    borderColor: "rgba(168, 85, 247, 0.35)",
-    glowColor: "rgba(168, 85, 247, 0.35)",
+    gradient: "radial-gradient(circle at 50% 35%, #261102 0%, #0C0805 100%)",
+    borderColor: "rgba(245, 131, 31, 0.45)",
+    glowColor: "rgba(245, 131, 31, 0.45)",
     image: "/assets/games/SPRIBE/AVIATOR.png",
   };
 };
