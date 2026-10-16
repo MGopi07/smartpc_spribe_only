@@ -73,10 +73,12 @@
 body {
   background-color: var(--bg-deep);
   background-image:
-    radial-gradient(circle at 50% 0%, rgba(245, 131, 31, 0.18) 0%, transparent 60%),
-    radial-gradient(circle at 100% 100%, rgba(217, 106, 6, 0.12) 0%, transparent 50%),
-    radial-gradient(circle at 0% 100%, rgba(122, 51, 0, 0.14) 0%, transparent 40%),
-    linear-gradient(180deg, #140D08 0%, #0C0805 100%);
+    linear-gradient(180deg, rgba(12, 8, 5, 0.80) 0%, rgba(20, 13, 8, 0.88) 40%, rgba(12, 8, 5, 0.96) 100%),
+    radial-gradient(circle at 50% 10%, rgba(245, 131, 31, 0.22) 0%, transparent 65%),
+    url('/assets/images/bg-1.png');
+  background-repeat: no-repeat;
+  background-position: center top;
+  background-size: cover;
   background-attachment: fixed;
   color: #FDF3E3;
   font-family: 'Inter', sans-serif;
@@ -1771,7 +1773,7 @@ select,
 
 /* Leaderboard Mini Card in Slide 2 */
 .tournament-leader-mini-card {
-  background: rgba(13, 3, 30, 0.8);
+  background: rgba(20, 13, 8, 0.85);
   border: 1.5px solid rgba(245, 131, 31, 0.4);
   border-radius: 14px;
   padding: 12px 16px;
@@ -1857,7 +1859,7 @@ select,
 
 /* Desk Perk Box in Slide 3 */
 .smartpc-desk-perk-box {
-  background: rgba(13, 3, 30, 0.8);
+  background: rgba(20, 13, 8, 0.85);
   border: 1.5px solid rgba(245, 131, 31, 0.45);
   border-radius: 14px;
   padding: 16px 20px;
@@ -1897,7 +1899,7 @@ select,
   width: 36px;
   height: 36px;
   border-radius: 50%;
-  background: rgba(13, 3, 30, 0.85);
+  background: rgba(20, 13, 8, 0.85);
   border: 1.5px solid rgba(245, 131, 31, 0.5);
   color: #FF9431;
   display: flex;
@@ -5733,7 +5735,7 @@ select,
   flex-direction: column;
   justify-content: flex-end;
   cursor: pointer;
-  border: 1.5px solid var(--tile-border, rgba(245, 131, 31, 0.35));
+  border: 1.5px solid var(--tile-border, rgba(245, 131, 31, 0.45));
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.45);
   background: #140D08;
   transform: translate3d(0, 0, 0);
@@ -5791,9 +5793,9 @@ select,
   position: absolute;
   inset: 0;
   background: linear-gradient(to top,
-      rgba(10, 4, 25, 0.95) 0%,
-      rgba(10, 4, 25, 0.45) 30%,
-      rgba(10, 4, 25, 0.05) 60%,
+      rgba(12, 8, 5, 0.95) 0%,
+      rgba(12, 8, 5, 0.45) 30%,
+      rgba(12, 8, 5, 0.05) 60%,
       transparent 100%);
   z-index: 2;
   pointer-events: none;
@@ -5814,7 +5816,7 @@ select,
   height: 48px;
   border-radius: 50%;
   background: linear-gradient(135deg, #FF9431 0%, #F5831F 100%);
-  color: #0b0416;
+  color: #0C0805;
   display: flex;
   align-items: center;
   justify-content: center;

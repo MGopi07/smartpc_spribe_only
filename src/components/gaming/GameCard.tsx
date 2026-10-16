@@ -15,6 +15,9 @@ interface SpribeGameConfig {
   image: string;
 }
 
+const THEME_CARD_BORDER = "rgba(245, 131, 31, 0.45)";
+const THEME_CARD_GLOW = "rgba(245, 131, 31, 0.45)";
+
 export const getSpribeGameConfig = (gameName: string): SpribeGameConfig => {
   const n = (gameName || "").toLowerCase();
 
@@ -22,8 +25,8 @@ export const getSpribeGameConfig = (gameName: string): SpribeGameConfig => {
     return {
       displayName: "Aviator",
       gradient: "radial-gradient(circle at 50% 35%, #8b1010 0%, #2e0505 100%)",
-      borderColor: "rgba(239, 68, 68, 0.45)",
-      glowColor: "rgba(239, 68, 68, 0.45)",
+      borderColor: THEME_CARD_BORDER,
+      glowColor: THEME_CARD_GLOW,
       image: "/assets/games/SPRIBE/AVIATOR.png",
     };
   }
@@ -31,8 +34,8 @@ export const getSpribeGameConfig = (gameName: string): SpribeGameConfig => {
     return {
       displayName: "DICE",
       gradient: "radial-gradient(circle at 50% 35%, #78350f 0%, #261102 100%)",
-      borderColor: "rgba(245, 131, 31, 0.5)",
-      glowColor: "rgba(245, 131, 31, 0.5)",
+      borderColor: THEME_CARD_BORDER,
+      glowColor: THEME_CARD_GLOW,
       image: "/assets/games/SPRIBE/DICE.png",
     };
   }
@@ -40,8 +43,8 @@ export const getSpribeGameConfig = (gameName: string): SpribeGameConfig => {
     return {
       displayName: "Goal!",
       gradient: "radial-gradient(circle at 50% 35%, #065f46 0%, #02261b 100%)",
-      borderColor: "rgba(34, 197, 94, 0.45)",
-      glowColor: "rgba(34, 197, 94, 0.45)",
+      borderColor: THEME_CARD_BORDER,
+      glowColor: THEME_CARD_GLOW,
       image: "/assets/games/SPRIBE/SOCCER.png",
     };
   }
@@ -49,8 +52,8 @@ export const getSpribeGameConfig = (gameName: string): SpribeGameConfig => {
     return {
       displayName: "Plinko",
       gradient: "radial-gradient(circle at 50% 35%, #075985 0%, #012133 100%)",
-      borderColor: "rgba(6, 182, 212, 0.45)",
-      glowColor: "rgba(6, 182, 212, 0.45)",
+      borderColor: THEME_CARD_BORDER,
+      glowColor: THEME_CARD_GLOW,
       image: "/assets/games/SPRIBE/PLINKO.png",
     };
   }
@@ -58,8 +61,8 @@ export const getSpribeGameConfig = (gameName: string): SpribeGameConfig => {
     return {
       displayName: "Wheel",
       gradient: "radial-gradient(circle at 50% 35%, #047857 0%, #01281e 100%)",
-      borderColor: "rgba(16, 185, 129, 0.45)",
-      glowColor: "rgba(16, 185, 129, 0.45)",
+      borderColor: THEME_CARD_BORDER,
+      glowColor: THEME_CARD_GLOW,
       image: "/assets/games/SPRIBE/MINIROULETTE.png",
     };
   }
@@ -67,8 +70,8 @@ export const getSpribeGameConfig = (gameName: string): SpribeGameConfig => {
     return {
       displayName: "Mines",
       gradient: "radial-gradient(circle at 50% 35%, #1e40af 0%, #0b1745 100%)",
-      borderColor: "rgba(59, 130, 246, 0.45)",
-      glowColor: "rgba(59, 130, 246, 0.45)",
+      borderColor: THEME_CARD_BORDER,
+      glowColor: THEME_CARD_GLOW,
       image: "/assets/games/SPRIBE/MINES.png",
     };
   }
@@ -76,8 +79,8 @@ export const getSpribeGameConfig = (gameName: string): SpribeGameConfig => {
     return {
       displayName: "HOTLINE",
       gradient: "radial-gradient(circle at 50% 35%, #831843 0%, #290614 100%)",
-      borderColor: "rgba(244, 63, 94, 0.45)",
-      glowColor: "rgba(244, 63, 94, 0.45)",
+      borderColor: THEME_CARD_BORDER,
+      glowColor: THEME_CARD_GLOW,
       image: "/assets/games/SPRIBE/HOTLINE.png",
     };
   }
@@ -85,8 +88,8 @@ export const getSpribeGameConfig = (gameName: string): SpribeGameConfig => {
     return {
       displayName: "Hilo",
       gradient: "radial-gradient(circle at 50% 35%, #5E2600 0%, #190F09 100%)",
-      borderColor: "rgba(245, 131, 31, 0.45)",
-      glowColor: "rgba(245, 131, 31, 0.45)",
+      borderColor: THEME_CARD_BORDER,
+      glowColor: THEME_CARD_GLOW,
       image: "/assets/games/SPRIBE/HILO.png",
     };
   }
@@ -94,8 +97,8 @@ export const getSpribeGameConfig = (gameName: string): SpribeGameConfig => {
     return {
       displayName: "Keno 80",
       gradient: "radial-gradient(circle at 50% 35%, #7A3300 0%, #140D08 100%)",
-      borderColor: "rgba(255, 148, 49, 0.45)",
-      glowColor: "rgba(255, 148, 49, 0.45)",
+      borderColor: THEME_CARD_BORDER,
+      glowColor: THEME_CARD_GLOW,
       image: "/assets/games/SPRIBE/KENO80.png",
     };
   }
@@ -103,8 +106,8 @@ export const getSpribeGameConfig = (gameName: string): SpribeGameConfig => {
     return {
       displayName: "Keno",
       gradient: "radial-gradient(circle at 50% 35%, #D96A06 0%, #0C0805 100%)",
-      borderColor: "rgba(255, 174, 102, 0.45)",
-      glowColor: "rgba(255, 174, 102, 0.45)",
+      borderColor: THEME_CARD_BORDER,
+      glowColor: THEME_CARD_GLOW,
       image: "/assets/games/SPRIBE/KENO.png",
     };
   }
@@ -112,8 +115,8 @@ export const getSpribeGameConfig = (gameName: string): SpribeGameConfig => {
     return {
       displayName: "Balloon",
       gradient: "radial-gradient(circle at 50% 35%, #0369a1 0%, #012236 100%)",
-      borderColor: "rgba(14, 165, 233, 0.45)",
-      glowColor: "rgba(14, 165, 233, 0.45)",
+      borderColor: THEME_CARD_BORDER,
+      glowColor: THEME_CARD_GLOW,
       image: "/assets/games/SPRIBE/BALLON.png",
     };
   }
@@ -121,8 +124,8 @@ export const getSpribeGameConfig = (gameName: string): SpribeGameConfig => {
     return {
       displayName: "Trader",
       gradient: "radial-gradient(circle at 50% 35%, #0f766e 0%, #032b27 100%)",
-      borderColor: "rgba(20, 184, 166, 0.45)",
-      glowColor: "rgba(20, 184, 166, 0.45)",
+      borderColor: THEME_CARD_BORDER,
+      glowColor: THEME_CARD_GLOW,
       image: "/assets/games/SPRIBE/TRADER.png",
     };
   }
@@ -130,8 +133,8 @@ export const getSpribeGameConfig = (gameName: string): SpribeGameConfig => {
     return {
       displayName: "Pilot Chicken",
       gradient: "radial-gradient(circle at 50% 35%, #7c2d12 0%, #270e05 100%)",
-      borderColor: "rgba(249, 115, 22, 0.45)",
-      glowColor: "rgba(249, 115, 22, 0.45)",
+      borderColor: THEME_CARD_BORDER,
+      glowColor: THEME_CARD_GLOW,
       image: "/assets/games/SPRIBE/PILOT.png",
     };
   }
@@ -139,8 +142,8 @@ export const getSpribeGameConfig = (gameName: string): SpribeGameConfig => {
   return {
     displayName: gameName.toUpperCase(),
     gradient: "radial-gradient(circle at 50% 35%, #261102 0%, #0C0805 100%)",
-    borderColor: "rgba(245, 131, 31, 0.45)",
-    glowColor: "rgba(245, 131, 31, 0.45)",
+    borderColor: THEME_CARD_BORDER,
+    glowColor: THEME_CARD_GLOW,
     image: "/assets/games/SPRIBE/AVIATOR.png",
   };
 };
